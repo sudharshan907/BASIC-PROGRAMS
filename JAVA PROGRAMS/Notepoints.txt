@@ -1,0 +1,30 @@
+a)Notepoints:-
+1)one project in intellij for every program in assignment is not required,One project in intellij for whole assignment is enough.Seperate classes,seperate main method for every program in assignment.See the path(location path) and go to .java files location in computer disk.Now every class is a seperate program itself.
+
+2)for declaring classes(student class etc with name,age,Id as instance variables) i declared outside the class which is containing main method in it.If declared inside a class(containing main method),we must follow inner class rules in java which is unnecessarily complicating the program.
+
+3)if a class is public it should only be present inside a file named classname.java 
+
+4)In c++ it facilitates multiple key set(along with hashset-single key) but not in java.we have to use point class for two dimension and what if we need a triplet In java?
+
+5)we can call methods of same class inside constructor-no problem
+
+6)*"100" is greater than "10"(according to inbuilt string methods like compareTo() method)
+
+
+
+b)Doubts:-
+1)how can we provide testcases in intellij at once?so that we need not type input again and again to test our program?
+
+2)
+a)If declared a class inside a class containing main method,some static errors are coming?why?
+b)What should be access specifier of both classes?in both cases(inside and outside)?(if public it is showing some error)& if private or protected  not allowed coming?
+Case:-class containing main method is public (file name should be same as this class name) and all other classes are outside and all are default (this works well)
+
+3)A file can contain only one public class with name as classname.java(?)
+
+4)we cannot store arrays in hashset.why?
+
+5)hasIntNext() method is not working?can we take which is not possible in C?(I think it works only for giving whole input at a time using a file,not sure)
+
+6)Not studied slides in java doubt slides.pdf
