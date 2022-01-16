@@ -1,0 +1,29 @@
+0)changed wsl ubuntu terminal name(referred SrcCodes youtube channel)
+
+1)ping(refer linux slides+linux rev book V-2)
+
+2)traceroute(refer linux slides+linux rev book V-3 first)
+*Not working in wsl ubuntu
+
+3)ifconfig(refer linux slides+linux rev book V-2)
+
+4)nslookup+host+dig(refer linux rev book V-3)
+
+5)whois(refer linux slides + linux rev book V-3)
+
+6)route(refer linux slides + linux rev book V-3)
+
+8)netstat,ss(refer linux slides + linux rev book V-3)
+netstat is not working in wsl ubuntu
+
+9)dstat(refer linux rev book V-3)
+
+10)ifstat(refer linux rev book V-3)
+
+11)wget(refer linux rev book V-3)
+
+7)tcpdump(refer linux rev book V-3)
+*Not working in wsl ubuntu
+
+12)tracepath(refer linux rev book V-3)
+*Not working in wsl ubuntu
