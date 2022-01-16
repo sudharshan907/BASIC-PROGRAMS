@@ -27,3 +27,6 @@ netstat is not working in wsl ubuntu
 
 12)tracepath(refer linux rev book V-3)
 *Not working in wsl ubuntu
+
+*WSL UBUNTU is actually a subsystem inside windows OS,so it only facilitates some commands/functionaalities of a pure linux based OS.
+commands like tcpdump,traceroute,tracepath,netstat will not work in wsl ubuntu.
