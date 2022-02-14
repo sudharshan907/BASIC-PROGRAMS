@@ -1,0 +1,46 @@
+Both programs are run in same VM two tabs of same terminal.(so 127.0.0.1 loopback address is used).if to run on different machines use server ip adress for both client and server program initialisations.
+Q1:-
+a)
+1)i used code from GitHub(idiot developer youtube channel  video published on April 25 2021 TCP server and client codes) and customised it according to assignment.
+2)actually entire raw code including assigning headers,filling fields,attaching and passing through layers etc will be inside system calls like listen(),accept(),connect(),socket(),bind(),send(),recv()  etc and many more(cprrespoding to TCP and UDP mechanism of connections)
+3)Might think inter-process communication is there then why this socket:IPC is there but it cannot be extended to internet whereas sockets can be used through internet and in same host also using loopback.msg passes through AL,TL,NL,DLL and it loops back to DLL,NL,TL,AL again in same host.includes all headers and decoding those headers etc
+4)For server use accept system call return value and not original socketfd itself for send,recv S C's,for client use original socketfd of socket creation for send/recv S.C's(applicable to only TCP)
+5)AF_INET=ipv4,SOCK_STREAM for TCP,SOCK_DGRAM for UDP,SOCK_RAW for ICMP in socket() system call,protocol field value in socket system call is 0 for IP protocol at NL.
+6)If server is running continously in while loop waiting for client and you stopped that process using ctrl+c ,and server runned again,then sometimes server cannot bind to the port number bcz it is already in use.
+Solution1:Don't stop sever process by ctrl+c instead close the entire terminal which will kill server process automatically and the port will be released automatically and no problem of bind error again
+Solution2:if we try to kill that specific process I searched so many articles and found no solution which will work in all cases and realised no solution for bind failed error just wait some time or restart the whole terminal or if urgent restart the whole OS.
+Solution 3:best solution:make port number dynamic by taking port number as input through main fn arguments or simple scanf,while running server again just give different port number simply.making bind number dynamic allows to counter attack bind error by using different port number when running immediately
+7)Why listen() and accept() and connect() and close() are not required in udp?bcz it will not establish a connection b/w server and client simply.
+8)we can paralelly run two terminals in VM ubuntu implies we can run paralelly two processes at a time(ex.client &server) just right click and click new tab that's it(in wsl ubuntu this two terminal tabs is not supported as of I know)
+9)for me only that special scanset format only worked don't know why(in 2nd q tcp client while taking input).if scanning strings differently some errors are coming.
+10)socket system call returns hash value of both ip addr and port number so unique for all TCP connections for one end.
+11)socket=ip addr+port number.tcp connection uniqueness=client socket+sever socket value
+12)connect & accept S.C's combinedly will generate 3-way handshake internally.close is abt sending a fin packet to other end(I think so not sure)
+13)listen S.C 2nd argument is no of clients at a time I guess not sure.more abt this in next lab ass abt multi threading.
+14)better to catch return value of all send,recv,sendto,recvfrom calls and check if it is zero it means nothing sent,will be useful for debugging entire code easily.
+15)1st q 4 programs are somewhat good with covering all edge cases,checking all errors,modular and reusable but 2nd q is not that much clean code.
+16)preparing the server for incoming client requests and to process them-listen() purpose.
+17)in udp server/client some packets can be lost bcz of unreliability of UDP and can be corrupted too.
+18)a single UDP/TCP (any type of )socket cannot be used to multiple peers communication simultaneously (multithreading will not work mam said but I didn't understand the exact reason)
+
+
+
+b)TCP programs to UDP programs changes(I followed):-
+1)sockstream to sock_dgram in socket() system call,remove listen,accept in server and connect in client
+*Replace all client_sock variables (return value of accept system call) of server with server_sock value itself.
+2) recv-recvfrom,send-sendto--->along with prototype extra arguments(client addr structure for server and server addr structure for client)
+3)in all sendto() of server last argument,remove address symbol before size variable.
+4)in all recvfrom() of client last argument,don't use sizeof() operator directly instead store sizeof(struct) in one variable of type socklen_t and put &variable_name as last argument.
+5)remove close(serversocket statements in both server and client)(for client removing is not required but for server close system calls must be removed inorder to function continously)-otherwise server will be running(while loop) with closed socket so not accepting any msgs from client(in TCP must close the sockets but in udp closing the sockets should not be there)
+
+c)doubts remained while doing this question
+Q1 doubts:
+1)Why binding of port number for client is not required?and what bind to socket number actually/literally means?(already socket is created right?then what is this extra bind() step relate to TCP packets process.
+2)In both TCP and UDP programs,TCP server and UDP server will be having both client addr,server addr structures.TCP client and UDP client will be having only server addr structure and no client addr structure.
+Q)even though client addr structure is not initialised to values,why it is used in accept() system call in TCP server program? And used in sendto(),recvfrom() system calls in UDP server program?
+3)IN_ADRANY exact meaning?(any local address.exact meaning?)(this is not used in my programs but used to initialise ip address to structure)
+4)what if in TCP termination step only one FIN is sent and the connection is half opened?(refer rev notes about how half opened TCP connection will behave I think sir discussed it )
+5)how to create a situation in which TCP connection is half closed exactly?relate/map to system calls like close etc 
+6)"TCP does not gaurantee msg boundaries" what this means in mam pdf?(TCP framing paragraph did not understand in mam pdf)
+7)protocol argument in socket S.C corresponds to protocol field in ipv4 header(mam said) but protocol field value 0 for ipv6 hop by hop option.so i doubt there is no relation b/w that ip header field and this argument value.
+8)in 1st q tcp server and client,analyse cases like client terminating abruptly(ctrl+c),server terminating abruptly(ctrl+c).see what happens to other side.
