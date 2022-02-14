@@ -1,0 +1,14 @@
+Doubts:
+1)if sending a 50mb file in same host(same virtual machine,2 processes) will our internet data will be counted?(technically there is no data transmission from DLL to PL so it will be counted or not?)
+2)in 2nd q question data transmission will not be done in same host msgs right?(will not touch physical layer right?)I think I have to do in 2 machines in VM?
+3)There is a significance of confirmation dummy msg during file transfer in both server and client.But i don't know what is that significance exactly but sure there is a significance bcz if removed that confirmation msg chat in both server and client then file is transferred crctly but then on the chat is not working i.e.,there is some flow control issue.I think here we have to transfer fixed size packets(500 bytes packets only) so this dummy msg is required i guess otherwise don't need of this dummy msg I guess not sure. 
+4)What exactly 1:2 means in gnuplot commands really mean?(in graph plotting)
+5)in 2nd question if run server in one VM and client in other VM specifying server ip address for both programs.connection is failed coming.(both are put in bridged adapter setting)-i think something to do with networks settings of two VM's.(wsl ubuntu as client and one VM as server -only option for me working nicely).
+6)Only if machine in VM inet addr is 192.168.x.x  then everything working fine.(in bridge adapter setting),but it is sometimes missing in Ifconfig command and only ipv6/inet6 address is showing.why?
+
+
+Notepoints:
+1)To capture data transmission rate open a new tab in VM and capture them parallelly using ifstat.. command .if opened a new terminal itself it might not capture rate(don't know why).
+2)whe running sever in one VM & client in another VM loop back addresses are not working.VM ipv4 address (192.168.x.x) when put in bridged adapter setting is only working.just change ip address string inside code.refer report pdf for more details.
+3)received video might take 1-2 mins to process it inorder to play it properly so wait-so if it not format supported initially then don't judge that video receiving is a failure
+4)for opening 2 terminals in wsl ubuntu just open the application again inorder to capture other side data transmission rate.but that is not capturing the rate bcz it is a new terminal itself.
