@@ -1,0 +1,131 @@
+Ass pdf question condense:
+
+a)Evaluation:video(establishment & breaking)+quiz+no report required+video has to be shared via Google drive by renaming and giving access to nitc mails.
+
+b)read ass pdf from "you have to use Internal network(intnet)....and upto last"-actual assignment description.
+
+
+1)timeline of execution:-(actually this process is somewhat incorrect scroll down to 5)update... to see the exact process).
+*used wsl ubuntu as client(which initiates ssh connection) and one VM as server and other VM as attacker.type ifconfig in server to know its inet/ipv4 address.wireshark should be running and capturing in either server machine or client machine.running in both machines is good.
+Put all machines inside Virtualbox in bridged adapter setting-otherwise not working properly.the machine which intialises ssh connection will become client and the accepting machine will become server automatically.Type any command like ls in client to capture and filter the packets in wireshark.right click on any ssh packet,select conversation filter,select tcp:- will filter packets correctly:only belonging to this tcp connection.
+*Wsl ubuntu can be put as client or server in this context but cannot be put as attacker.bcz even though hping3 can be installed in wsl ubuntu when running the command it is saying can't open raw socket-permission denied:-error.one of limitation of wsl ubuntu.
+
+
+"ssh username@ipaddrvalue":-for establishing ssh connection to machine with username and ip address=ipaddrvalue (username=letters before @ in server machine terminal) from other machine.give servers password in client and not clients password itself.
+after establishing connection if typed ifconfig or any command it will execute in server's machine and not executed in client machine and will print output from server's machine in this client machine.
+
+
+"sudo hping3 -a (source_ip) (dest_ip) -p (dest_port) -s (src_port) -R -A -M (nextseq_num raw value) -L (ack_num raw value) -c 1"
+(get all above ( ) values from tcp header of last packet from src_ip to dest_ip of this tcp connection.choose last packet carefully.
+
+(should be run from another machine(attacker) other than client & server.it will act as src_ip and will send to dest_ip.dest_ip machine thinks that it is coming from src_ip but actually it is from attacker.(dst_prt,src_port,nextseq_num,ack_num) take these values from tcp header of last packet from src_ip to dest_ip.R &A for reset & ack flags setting 1.nextseq_num value will be next seq_no raw value from TCP header of last packet of src_ip machine as source and dest_ip as dest address.ack_num is value of last TCP packet TCP header raw value of src_ip as source.c implies no of packets to send,here we just sent one packet.)
+(we exactly don't know this is the command to be used.watched one youtube video(Navya unnikrishnan youtube channel jan 10 2019 published video).understood and modified it to 3 machines.This command worked for us.)
+
+
+
+(last packet of src_ip to dest_ip -in same TCP connection only there can be other TCP connections also b/w same machines.so must filter the packets of single TCP connection,using conversation filter option,tcp option and choose the last packet from src_ip to dest_ip carefully.)
+
+
+
+1)attacker with the name of client sending rst set packet to server:-
+client is src_ip and server is dest_ip in this case.(for taking values for hping3 command).
+Choose the last packet tcp header which is going from client to server.
+a)once sender disconnects from connection client will automatically know that connection is terminated.bcz server will itself send a rst packet to client.so both client and server will terminate connections in this case.in client terminal we can see msg as "client_loop:send disconnect: Broken pipe" after we try to type something in client terminal.
+we can see rst packet_red packet in wireshark of server or client.
+
+*100% packet loss msg will come after executing hping3 command in attacker.it doesn't mean packet is lost in internet.it means that packet is lost from us(attacker) and sent to internet.that's it.
+
+
+2)attacker with the name of server sending rst set packet to client:-
+server is src_ip and client is dest_ip in this case.(for taking values for hping3 command).
+Choose the last packet TCP header which is going from server to client.
+a)client will take it and will disconnect the ssh connection from client side and frees up the port numbers etc
+b)but server didnot know that connection is break and will still wait for client to send any commands and will not release port numbers.we can check whether connection is open by typing netstat command in server ,it shows that connection is established even after doing this attack.and if try to power off the server it will show one client is connected/logged in to this system via ssh.so in switching the attack,must restart the whole ssh connection and now attack freshly.
+c)even though attacker attacked the client from other machine wireshark inside server is still showing that rst packet from attacker(with the name of server) to client in interface (idk why it shows even though server didn't send rst to client).
+we can see rst packet_red packet in wireshark of server or client.
+
+
+*100% packet loss msg will come after executing hping3 command in attacker.it doesn't mean packet is lost in internet.it means that packet is lost from us(attacker) and sent to internet.that's it.
+
+
+2)Points to note:
+
+*for installing ssh facility in any linux based machine(wsl ubuntu or ubuntu inside Virtualbox):-execute these commands in wsl ubuntu and VM ubuntu(2 ubuntus) to install ssh server in both:
+1.sudo apt-get purge openssh-server(removes ssh server if already installed).
+2.sudo apt-get install openssh-server(actual installation)
+(both machines taking part in ssh connection should have this ssh facility).
+
+*hping3 can be easily installed in any linux based machine.just type hping3,it will show command to install.execute it.
+
+*installed wireshark in ubuntu inside Virtualbox(referred linuxhint youtube channel video only)
+
+*installed wireshark in windows(popular installation-refer any youtube video or just click next buttons continously)+installed wincap also seperately bcz wincap didn't get installed automatically in my case during wireshark installation.
+
+*For installing 2nd ubuntu,3rd ubuntu inside virtual box with same .iso file used for ubuntu 1 earlier :-followed programming knowledge youtube channel video published on Apr 25 2020+some changes:
+04.07 mins:-give 1.5gb as ram,6.58mins:-give 10gb as ROM,12.17mins:-opt minimal installation instead of normal installation(minimal installation will have only few functionalities).
+
+*right click on any TCP packet,select protocol preferences,select TCP,we can disable/untick relative seq numbers in TCP headers(if we didn't disable we cannot see next seq no raw value inside TCP header)
+
+*in ass pdf when TCP connection is quesent it means when TCP connection is static-packets transfer is not happening temporarily.so that we can use the last packet values to attack.
+
+*to capture rst packet for 1 end(server to client) we should have wireshark at client side and to capture rst packet(client to server) we should have wireshark at server side definitely(but one side wireshark is enough practically,it is showing i dont know why).
+
+*special value for header fields mentioned in ass pdf are exact next seq number value,ack number value from wireshark.any other value for these will not work.we should build the reset packet very carefully using appropriate values for some fields in TCP header of last packet from src_ip to dest_ip so that receiver will not reject our packet.
+
+*in wireshark inside ubuntu in VM any interface option is not showing(if in terminal typed sudo wireshark and run/started then only interface options are coming).so to run wireshark inside Virtualbox machine use terminal only.dont open app directly by searching terminal.
+
+*putty is a simple sw which is very useful for telnet,ssh etc(but we didn't use this for this assignment)
+
+*Installed putty in windows 10(referred websplaining youtube channel only)(but no use for this ass)
+
+*for updating any Linux based OS from terminal :2 commands with internet connection(sudo apt-get update && sudo apt-get upgrade)
+
+
+3)Doubts:
+
+*Check ssh connection will establish if there is no internet connection to the system?(b/w 2 machines in same host)
+
+*check if some other laptop can establish ssh connection with my laptop through internet?(if not possible try changing network settings in virtualbox)
+
+*In ass pdf it is mentioned to use only internal network setting for all virtual machines but process is not working so we used bridged adapter setting for all VM's.why not working?(this doubt is cleared refer below notes 5th point abt internal networks setting it is working).
+
+*Put a ssh connection b/w two machines in same host and share the last packet tcp header details to some other friend and ask him to attack this connection through internet (diff host).I expect that rst packet will not enter into my connection bcz on the way routers will discard the attacker packet bcz router has facility to detect t src_ip is same as ip address of that machine etc(network security) or any other network security.we didn't try this bcz of stress of clg course work.so we don't have solid proof that router will discard.try it once and confirm that attck is not possible.
+
+*for establishing ssh connection inet6 or ipv6 add's are not working using the below command,only ipv4/inet addr's are working.why?
+
+*sometimes when typed ifconfig in machine in bridged adapter setting,it is not showing inet/ipv4 address only showing ipv6/inet6 address.but when captured some packets in wireshark inside wireshark it is showing crct ipv4 address of this machine.why this is not shown in ifconfig sometimes?
+
+4)Answers for Questions in pdf:
+1."forged TCP reset" or "spoofed TCP reset packets" or "TCP reset attacks", 
+2.refer raudra rev notes TCP section
+3.we need src ip and port number also bcz only if we put those values receiver will think this packet is coming from src and will break the connection.putting only dest ip and dest port values makes receiver to ignore the packet bcz receiver didn't know this is coming from src.without giving src ip and src port will not work i guess but I didn't try it since I didn't know the exact hping3 command arguments to generate the packet.
+4.dont know the answer for this question.but i personally feel window size has no effect on this process.i am not sure.
+5.tcp protocol rules are such that if got any packet with wrong seq_number it will automatically reset the connection detecting a attack to this connection.so we must give crct seq_numbers in order for the receiver to accept this packet.
+6.refer raudra rev notes TCP section.
+7.didnot understand the question and don't know the answer.
+8.refer basics of ISN etc in raudra rev notes.bit didn't understand the exact question and don't know the answer.
+9.dont know the answer.
+
+
+5)Update abt internal network setting mentioned in ass pdf:(correct way to do the assignment).
+
+
+*We followed ideal(recommend) diagram in ass pdf,all 3 VM's are set in internal network setting and ip addresses,DGW,netmask are manually set,in intnet we cannot access internet, download anything etc
+
+
+1)We have to put all VM's in internal network setting and below advanced settings box  pre.. mode select allow all option and remaining default options.click ok.do for all 3 VM's and start 3 VM's.
+
+2)if typed Ifconfig,etc it will not show info like ip address,netmask,dgw etc.
+Now we have to set manually ipv4 address,netmask,DGW values.(we can choose any appropriate values).here we followed ideal diagram in ass pdf and used those ip addr,netmask(24 bits 1's),dgw addresses only for manual setting of client,server and attacker.do this for all 3 machines.click apply/save.
+
+3)select settings-network-settings symbol in wired box-ipv4-change from automatic(dhcp) to manual-give address,netmask,gateway values as mentioned in ass pdf.click apply.do this for server,client and attacker also.
+
+4)wait till the applied change is processed.we will get a "?" Symbol in top right once changes are updated to system network settings or we have to restart all machines to process the changes.now type Ifconfig,ip r to see the changes.
+
+5)Both attacking server and attacking client worked for me correctly.In attacking server,server in response also sent a rst packet to client.so client also get to know that resetting the connection in server attack.but in attacking client, client didn't send a rst packet to server so server didn't know that connection is rst and we can see that using netstat command that socket is still open.
+
+6)to reset the network settings from internal network to normal,go to settings and delete the tuple of 3 values,change to automatic(DHCP setting) for ipv4.power off the machine and change to NAT/bridged adapter setting in virtualbox network settings and start the machine again.everything will be normal.
+
+7)This intnet setting is the actual process to do the assignment correctly.
+
+
