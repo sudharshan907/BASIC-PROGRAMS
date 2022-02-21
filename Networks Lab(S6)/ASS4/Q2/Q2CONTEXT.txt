@@ -1,0 +1,25 @@
+Q2:-
+Notepoints:
+
+*Only new thing is using fork() that's it nothing else.
+
+*in fork() entire process will get duplicated along with whole memory and both parent  and child will get executed from next instruction,so mutexes etc are not required.There is no common data (even global variables are duplicated).usage of fork() came from q itself not my own thought.and threads facility is not required in Q2 bcz problem description does not demand threads.(threads will act on same/common data items,whereas fork() will duplicate the data items)
+
+*For this code normal gcc commands are enough.since thread functions/library are not involved.only fork() is involved.
+
+*Used some code snippets from idiot developer youtube channel multiple clients handling video description github account.
+
+*Purpose of putting client address structure in accept system call arguments is client address structure fields will get filled by connected client values automatically.refer comments in code.
+
+*parent process only accepts connections and will create a new process(fork()) and allot the accepted client to it and will continue accepting clients.suppose if 2 clients connectes then there will be 3 processes(parent process+2 child processes
+
+
+Doubts:
+
+*Suppose 4 clients are connected and client1 exited.then new client is given client5 only.upto now correct but now if another new client is connected it is being given client2 number.why?(a bug).(something to do with count variable).
+
+*In question it is mentioned that we have to terminate the client using ctrl+c and not exit.try it.if used ctrl+c in client,server parent process is stucking in infinite loop.why?handle it.(in 2nd q)(to avoid infinite loop check return value of recv and terminate if <0.will this work?)
+
+*what happens to child process(not parent process) if assigned client process terminates suddenly?ctrl+c?(in TCP server code)(difficult to detect this answer i guess)
+
+*There is something called select() which can easily handle multiple clients etc but i didn't use that and used fork() which has limited functionalities for handling multiple clients.tried to study about select() in gfg article but lack of interest made it not understandable during submission.
