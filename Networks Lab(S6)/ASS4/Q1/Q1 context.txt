@@ -1,0 +1,75 @@
+CHAT SYSTEM context:
+
+Notepoints:
+
+*Put this in resume as project and upload in GitHub as a seperate file also along with report after lab evaluation procedure.
+
+*Honestly speaking i didnot write the code from scratch.Used snr submission programs and customised it a lot in my style and understood every line of code.
+
+*Whole basic  idea of 1st q is based on fact that if a client sent a msg to server then server can send that msg to all clients which are connected to it saying the source client name using clientlist[] socket values.basic system design idea -driving force of making this project technically.
+
+*This functionality resembles whatsaap grp functionality with some limited features of course.whatsaap also in initial stages has limited features and bcz of he intellectual software engineers managing it and updating it/adding new features continously made it look more advanced now.
+
+*Refer comments in code for more info.if two threads are acting on same data item,then there must be synchronisation so must use mutexes.
+
+*Best way to debug isocket programs is to print all send,recv function calls buffers.(powerful tool)
+
+*Update of putting a password for server is actually present inside server and client codes but commented.
+
+*-pthread is required only bcz we are using pthread library inside code.(this is just a extra facility).if no pthread lib functions used in program then no need of this extra -pthread while compiling.
+
+*seperate thread for Every new client is required bcz server don't know when a particular client will send msg to it.so we have to put recv(sockfd);  for all clients continously in server and this is possible only with threads.all threads will correspondingly wait for every client to send the msg.(there might be other possibility also I don't know but I knew threads will make this mutiple listenin possible).
+
+*We have to use mutexes carefully,otherwise there can be a deadlock.we have to be so careful about deadlocks.and managing mutexes otherwise undefined behaviour will happen ij programs due to race conditions/deadlocks.keep in mind that threads will run parallelly so one thread can execute first and another thread later etc.dont think this is undefined behaviour.
+
+*thread_join is not actually joining,saying original process to wait until all joined threads stops execution.
+
+*Actually mutex is not required in client.bcz two threads have different memory.msg[] is there twice.and not working on common data.and sockfd variable only reading-no modifying.but later I added aliveflag.which can be modified so must use mutex for that alive flag.Aliveflag is imp bcz receiver should also stop automatically once sender is stopped.or sender should stop once receiver is stopped.
+
+*we must compile using seperate command if pthread functions are involved."gcc -pthread filename.c" && "./a.out (port_number)".
+
+*Since server runs continously,no need of join statements in server program as of in client program.actually sever can be stopped only using ctrl+c.which is not that crct.
+
+*We might think that in client program two threads are not required.but required bcz we don't know when we will receive msgs or when we will send msgs.having two threads for this is a must in client.we can also put these 2 sender & receiver threads in client program in ass3 1st q,but not necessary and waste of time bcz there in ass3 1st q we exactly knows when we will receive msgs and when we have to send msgs.
+
+*wherever two threads/processes acting/modifying on same data i used mutex locking.make sure to lock every where(search the common data,variables in editor and deal all of them must) otherwise in some program runs it can work fine and in another runs it will not work fine,due to race conditions.
+
+*For the client which entered after maxlimit is reached,the client program will run another iteration of sender thread bcz already it entered into iteration even though aliveflag now became zero.so sender thread will perform one extra iteration-not a big problem.i dont know hoe to fix this.neglected it bcz a very small problem.
+
+*New points apart from ass3 programs:
+
+1)pthread library, different command to compile,mutex data type(pthread_mutex_t),initialisation macro,thread Id data type(pthread_t),creating threads (making a thread from a single fn with at most 1 argument,type casting arguments),pthread_create(),pthread_join(),mutex_lock(),mutex_unlock() fn's,[pthread_detach(pthread_self) in server code].
+
+2)if multiple threads/processes have access to common data members,lock them whenever modifying that variable, carefully watch all common data members everywhere and lock all of them.seperate mutex variables for seperate common data items is better reduces some time wastage.
+
+3)Better to pass arguments to thread fn using pass by value,dont pass pointers,avoid thread to use the common memory again.or else copy that argument inside thread to other memory specific to that thread.if not done,we have to use mutexes again bcz thread is accessing data in parent process.(common data again which is an extra headache).
+
+
+Doubts:
+
+*Replace all sprintf() statements with some other like strcpy etc bcz using sprintf() in linux OSis giving warnings may be dangerous to use that function in production related work.dont know.can we use this to make strings from integers instead of itoa() which is not available in linux platform.
+
+*If threads only reading common data,then mutexes are required?(no i guess)reading is not a problem-Read-Read is not a problem.only if involved modifying/write() common data then mutexes are required.(confirm this anywhere not 100% sure,90% sure.)
+
+*For different data items different mutex variables needed?(if used seperately then we can reduce some time wastage).we can also use same mutex for every common data but it can consume some time and in some cases may lead to deadlock also(confirm this anywhere not sure).
+
+*Actually server process cannot be stopped without using ctrl+c in my program.how to avoid this and make stopping normal? And *Stopping any client process using ctrl+c is leading to infinite loop in server program.how to fix this?
+
+*If i try to remove all warnings in server program compilation then when running again so much of undefined behaviour is happening.so don't remove warnings simply.Know the exact reason of warnings and remove them carefully.and run and confirm continously.if we compile server program we will get so many warnings but no errors in linux platform.
+
+*What if we close the socketfd using close(sockfd) created in client using 2 threads?
+
+
+Update thought/some small bugs:
+
+1)Better to take client name as input if limits reached, and use that client name and pass it to all clients+server.-not required(so left)(update thought).or atleast remove taking name of last client unnecesarily.we might think why wecan't stop the accepting also if maxlimit is reached ,but without accepting we cannot inform client that you are rejected only due to limit reached and not any connection problem.
+
+2)If max_clients are 3 and first,second,third connected and first one exited the chat.if a new client is connected (fourth) then it is showing current members as only second,third name is not displaying for fourth connected client.
+*a)any msgs from this 4th client is not going to third client. And any msg from third client is not going to 4th client.remaining everything is fine.(far fetched bug).something to do with clientlist[] array here.
+*(Simply if one client attempted to join and rejected by server(due to limit) and one member exited and now new member joined from now on not working properly).(something error with clientlist[] database).
+
+3)it is better if we provide a functionality,to send the msg only to the required single client and not to the whole group.implementing is not difficult,but takes time.(update thought)
+
+4)add a other functionality like displaying all current user names when typed one fixed word as a msg.(not required leave it bcz we already displayed who joined and who left the chat).(update thought).
+
+5)Better to include a functionality which changes the MAX_CLIENTS value inside server.(not required actually).(implementing is difficult i guess from server).means since we are not taking any input from server .but we can change this value from any client side by reserving a fixed msg for this in client like exit -is a fixed/reserved msg.
