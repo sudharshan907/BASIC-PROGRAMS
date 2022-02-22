@@ -110,10 +110,9 @@ we can see rst packet_red packet in wireshark of server or client.
 5)Update abt internal network setting mentioned in ass pdf:(correct way to do the assignment).
 
 
-*We followed ideal(recommend) diagram in ass pdf,all 3 VM's are set in internal network setting and ip addresses,DGW,netmask are manually set,in intnet we cannot access internet, download anything etc
+*We followed ideal(recommend) diagram in ass pdf(see that diagram),all 3 VM's are set in internal network setting and ip addresses,DGW,netmask are manually set,in intnet we cannot access internet, download anything etc
 
-
-1)We have to put all VM's in internal network setting and below advanced settings box  pre.. mode select allow all option and remaining default options.click ok.do for all 3 VM's and start 3 VM's.
+1)Go to network settings in virtualbox after selecting the machine,We have to put all VM's in internal network setting and in below advanced settings box,in promiscuous mode select "allow all" option and remaining settings leave it as default.click ok.do for all 3 VM's and start 3 VM's.
 
 2)if typed Ifconfig,etc it will not show info like ip address,netmask,dgw etc.
 Now we have to set manually ipv4 address,netmask,DGW values.(we can choose any appropriate values).here we followed ideal diagram in ass pdf and used those ip addr,netmask(24 bits 1's),dgw addresses only for manual setting of client,server and attacker.do this for all 3 machines.click apply/save.
@@ -126,6 +125,6 @@ Now we have to set manually ipv4 address,netmask,DGW values.(we can choose any a
 
 6)to reset the network settings from internal network to normal,go to settings and delete the tuple of 3 values,change to automatic(DHCP setting) for ipv4.power off the machine and change to NAT/bridged adapter setting in virtualbox network settings and start the machine again.everything will be normal.
 
-7)This intnet setting is the actual process to do the assignment correctly.
+7)This intnet setting is the actual process to do the assignment correctly.if 3 VM's are in internal network setting,3 VM's will get isolated from internet.since we are attacking(illegal) we should get isolated from internet.if we attcked through internet,due to network security in internet ,routers on thw way will detect the src_ip and ip address is not same and will discard our packets and we will not get informed about this discarding or even routers can change some values inside our packet and continue it in some cases. 
 
 
