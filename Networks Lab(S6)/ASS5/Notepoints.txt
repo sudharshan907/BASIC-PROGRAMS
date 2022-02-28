@@ -1,0 +1,29 @@
+*Personally I don't have interest in implementation of these 2 algorithms.but i am interested in knowing all points about these algorithms except implementation(theory like count to infinity,split horizon etc).so used Subbu anna programs.didnot concentrate on this much.modified Subbu anna programs just for marks.dont consider this as my own work.
+
+*Should have converted input format to weighted adjacency matrix and applied algorithms on it.atleast converting list of edges to adjacency matrix -but didn't do bcz of lazyness and followed Subbu anna complicated code.
+
+*Relaxing from 2 ends of an edge is required must in both programs since representation(implementation) is list of edges,we must relax from both ends.if input is weighted adjacency matrix no need to relax from both ends.One end is enough bcz in matrix we will Traverse each edge twice in matrix both upper and lower triangular.
+
+*Bellmanford and dijkstra can be used for directed and undirected graphs.(for undirected graph make sure to put both values in adjacency matrix that's it and if list of edges is input make sure to put reverse edges also in list that's it).
+
+*Refer comments inside code for some small explanations etc for both programs
+
+A)My updations to Subbu anna programs for DVR code:
+
+1)From Subbu anna he is taking indices as input(for src,dest values not cost).but here we have to take numbers input.so after scanning i decremented src,dest values not cost values.From Subbu anna he is printing indices so searched all printf's and while printing any index just put x+1 as argument in printf.(don't increment/change cost values)
+
+2)From Subbu anna,he is printing predeccor but ass want nexthop so must design a function which gives successor.we can't store nexthop directly.must obtain nexthop from pred values itself.manipulated printpath fn and somehow done it.since it is recursive fn i am printing first node and stopping printing using flag variable.
+
+3)why executing belman and dijkstra for every index as source?only for one source is enough right?(in main fn).?(Not enough bcz they asked routing tables of all nodes.belman/dijkstra gives table only for single source shortest path)one iteration of belman will give routing table of one node only.)answers are storing in corresponding seperate memories for every node as source so no problem of data overwriting etc
+
+B)My Updations to Subbu anna code for LSR code:Lazy to note down all these.(left)
+
+Modification question(LSR based):(DVR based modification q is not asked)
+
+*Refer comments inside code for whole explanation etc
+
+*Might think that modifying input graph is enough and so simple modification whole program to do.yes correct.but modifying input or copying input and modifying is somewhat difficult if input is in form of list of edges especially in C language.(if input is in form of weighted adjacency matrix earlier in original problem then this modification is just like modifying input matrix and giving that as input to dijkstra ,but didn't do bcz of laziness.(for modifying weighted matrix make sure to mark/remove all edges going out of it to other vertices and also mark/remove all edges coming into it from other vertices-change both upper triangular and lower triangular values in matrix.
+
+*In modification question code,i first got a thought that to change the input and remove all edges connecting with given router.good idea only but may be complicating the things here.subbu anna declared a Boolean array and used it.(this headache might not have occurred if in ass question itself I modified the input of list of edges to weighted adjacency matrix.bcz removing edges in adjacency matrix representation is so easy and changing to modification question is dead easy if i did that.
+
+*since only one router is down you might think that no need of boolean array and just avoid those vertex and edges in dijkstra in the code.yes correct but our code should be modular and reusable.so even if varuable number of downs happen we can modify thius code easily by marking false appropriately in boolean array.so using boolean array makes code reusable.
