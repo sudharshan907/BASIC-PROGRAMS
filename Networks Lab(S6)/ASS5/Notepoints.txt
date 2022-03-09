@@ -1,5 +1,7 @@
 *Personally I don't have interest in implementation of these 2 algorithms.but i am interested in knowing all points about these algorithms except implementation(theory like count to infinity,split horizon etc).so used Subbu anna programs.didnot concentrate on this much.modified Subbu anna programs just for marks.dont consider this as my own work.
 
+*for these theoritical details(theory like count to infinity problem of DVR,split horizon solution to it and more info etc) refer raudra rev notes 11th rev book,Routing whole section.
+
 *Should have converted input format to weighted adjacency matrix and applied algorithms on it.atleast converting list of edges to adjacency matrix -but didn't do bcz of lazyness and followed Subbu anna complicated code.
 
 *Relaxing from 2 ends of an edge is required must in both programs since representation(implementation) is list of edges,we must relax from both ends.if input is weighted adjacency matrix no need to relax from both ends.One end is enough bcz in matrix we will Traverse each edge twice in matrix both upper and lower triangular.
