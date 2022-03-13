@@ -4,7 +4,7 @@
 
 *Should have converted input format to weighted adjacency matrix and applied algorithms on it.atleast converting list of edges to adjacency matrix -but didn't do bcz of lazyness and followed Subbu anna complicated code.
 
-*Relaxing from 2 ends of an edge is required must in both programs since representation(implementation) is list of edges,we must relax from both ends.if input is weighted adjacency matrix no need to relax from both ends.One end is enough bcz in matrix we will Traverse each edge twice in matrix both upper and lower triangular.
+*Relaxing 2 ends of all edges only matching with sample input/output given in ass pdf.if relaxed only one end of all edges is not matching with sample i/o given in ass pdf.so it is indirectly mentioned in ass pdf without stating seperately that if given a edge in input assume that given edge is undirected i.e., assume 2 directed edges from both sides for every given edge in input.so if converting given list of edges to weighted adjacency matrix add value to both indices(upper triangular and lower triangular) in adjacency matrix.
 
 *Bellmanford and dijkstra can be used for directed and undirected graphs.(for undirected graph make sure to put both values in adjacency matrix that's it and if list of edges is input make sure to put reverse edges also in list that's it).
 
