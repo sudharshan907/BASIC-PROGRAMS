@@ -1,0 +1,52 @@
+*(ask chetan or shamil submission and understand file handling part in usern,passwd commands)
+
+*I did this assignment only for marks of this assignment,no interest personally for me in this ass,file transfer codes also taken as it is from one snr submission.
+
+*For better context refer screenshots of sample run covering all cases pdf in screenshots.pdf 
+
+
+Notepoints:
+
+*For createfile it is displayed in monitor that provide .txt only in printing but can handle any file type actually.
+
+*Threads are not required here bcz we knew exactly when msg will come from other end(server/client).if we don't know when the msg will come from client we must use multithreading(single thread for each client is a must)
+
+*I think before quitting it is better is we use exit() instead of return to make sure all file transfers are finished before terminating the process.(not sure)
+
+*Didnot do on own from scratch,modified the panasa teja snrs submission that's it.Even in software industry we need not write code from scratch,just should update it and ofcourse updation is also not easy.
+
+*Telnet vs FTP
+1  tcp connection vs 2 tcp connections
+23 vs 20(data),21(control)
+Login necessary vs no login necessary
+All type passage vs only files and command control
+
+
+Left works to do:
+
+1)in server code,marked code snippet of handling usern,passwd,handling file -understand it,since working properly left temporarily.(client code snippet is understood,server code snippet here is some what complicated bcz involves using file data to check the credentials)-marked using ////////......code snippet.....////////(or take chetan or shamil submission and understand how handled file correctly)-chetan codes are also present in this GitHub.
+
+2)writefile,sendfile,listdir fn code snippets.didnot understand completely.left temporarily bcz working fine.
+
+3)fgets() vs scanf() article in gfg entirely understanding.
+
+
+
+Some bugs in the entire code:(except this bugs program works exactly as mentioned in ass pdf)-i guess mostly.
+
+*In some runs of storefile option undefined behaviour is happening like skipping first 19 or 20 bytes and sending remaining file and another type of undefined behaviour also sometimes.
+
+*some undefined behaviour can happen if we are in stage of giving second command and so on.for first command(first iteration of any(while) loop) everything will work fine According to ass pdf exactly.
+
+*asked to enter a command 1st word first and then second word.ex:-usern enter and then name but in ass they asked like usern <name> will be entered at a time and we have to interpret it.
+
+
+*sendfile() and writefile() fn codes are not same in both client and server programs.(Bcz GetFile option is working fine in all runs but storefile is working fine only in some runs).
+
+*in case where given wrong username or password in first attempt,better to rerun again bcz in 2nd attempt some undefined behaviour is happening in authentication like even though given crct username and password in next attempts server is saying authentication failed(that code in server and client is not clean).
+
+Extra features other than ass pdf:-
+
+1)getfile option also handles the case where server contains does not contain file also smoothly.
+
+2)Storefile option also handles the case where asked file is not present in client directory smoothly.
