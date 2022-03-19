@@ -1,29 +1,28 @@
-
-*(ask chetan or shamil submission and understand file handling part in usern,passwd commands)
-
 *I did this assignment only for marks of this assignment,no interest personally for me in this ass,file transfer codes also taken as it is from one snr submission.
 
 *For better context refer screenshots of sample run covering all cases pdf in screenshots.pdf 
 
 a)Notepoints:
 
-*For createfile it is displayed in monitor that provide .txt only in printing but can handle any file type actually.
+*In createfile option it is displayed in terminal using printf() that provide .txt only but can handle any file type creation actually.
 
 *Threads are not required here bcz we knew exactly when msg will come from other end(server/client).if we don't know when the msg will come from client we must use multithreading(single thread for each client is a must)
 
-*I think before quitting it is better is we use exit() instead of return to make sure all file transfers are finished before terminating the process.(not sure)
+*I think before quitting it is better to use exit() instead of return 0; to make sure all file transfers are finished before terminating the process.(not sure)
 
 *Didnot do on own from scratch,modified the panasa teja snrs submission that's it.Even in software industry we need not write code from scratch,just should update it and ofcourse updation is also not easy.
 
-*Telnet vs FTP
+*Telnet vs FTP(asked in viva)
 1  tcp connection vs 2 tcp connections
 23 vs 20(data),21(control)
 Login necessary vs no login necessary
 All type passage vs only files and command control
 
+*FTP vs FTAP(asked in viva):didnot answer it convincingly to him,he told some explanation but didnot understand it.refer google for answer.
+
 b)Left works to do:
 
-1)in server code,marked code snippet of handling usern,passwd,handling file -understand it,since working properly left temporarily.(client code snippet is understood,server code snippet here is some what complicated bcz involves using file data to check the credentials)-marked using ////////......code snippet.....////////(or take chetan or shamil submission and understand how handled file correctly)-chetan codes are also present in this GitHub.
+1)in server code,marked code snippet of handling usern,passwd,handling file -understand it,since working properly left temporarily.(client code snippet is understood,server code snippet here is some what complicated bcz involves using data present in file to check the credentials)-marked using ////////......code snippet.....////////(or take chetan or shamil submission and understand how they handled file data correctly)-chetan codes are also present in this GitHub.
 
 2)writefile,sendfile,listdir fn code snippets.didnot understand completely.left temporarily bcz working fine.
 
@@ -33,13 +32,13 @@ c)Some bugs in the entire code:(except this bugs program works exactly as mentio
 
 *In some runs of storefile option undefined behaviour is happening like skipping first 19 or 20 bytes and sending remaining file and another type of undefined behaviour also sometimes.
 
-*some undefined behaviour can happen if we are in stage of giving second command and so on.for first command(first iteration of any(while) loop) everything will work fine According to ass pdf exactly.
+*some undefined behaviour can happen if we are in stage of giving second command and so on.for first command(first iteration of any(while) loop) everything will work fine According to ass pdf exactly but not sure about remaining iterations.
 
-*asked to enter a command 1st word first and then second word.ex:-usern enter and then name but in ass they asked like usern <name> will be entered at a time and we have to interpret it.
+*asked to enter a command 1st word first and then second word.ex:-usern enter and then <name> but in ass they asked like usern <name> will be entered at a time and we have to interpret it.
 
-*sendfile() and writefile() fn codes are not same in both client and server programs.(Bcz GetFile option is working fine in all runs but storefile is working fine only in some runs).
+*Both client and server programs have both sendfile() and writefile() fns,but sendfile() in client is somewhat different from sendfile() fn code in server,writefile() fn code in client is somewhat different from writefile() fn code in server(GetFile option is working fine in all runs but storefile is working fine only in some runs).
 
-*in case where given wrong username or password in first attempt,better to rerun again bcz in 2nd attempt some undefined behaviour is happening in authentication like even though given crct username and password in next attempts server is saying authentication failed(that code in server and client is not clean).
+*in case where given wrong username or password in first attempt,better to rerun again bcz in 2nd attempt some undefined behaviour is happening in authentication like even though given crct username and password in next attempts server is saying authentication failed(that code snippet of handling usern,passwd inputs in server and client is not clean-i took this code snippet from other-didnot try on own).
 
 d)Extra features other than ass pdf:-
 
