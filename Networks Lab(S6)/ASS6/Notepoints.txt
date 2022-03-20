@@ -22,7 +22,7 @@ All type passage vs only files and command control
 
 b)Left works to do:
 
-1)in server code,marked code snippet of handling usern,passwd,handling file -understand it,since working properly left temporarily.(client code snippet is understood,server code snippet here is some what complicated bcz involves using data present in file to check the credentials)-marked using ////////......code snippet.....////////(or take chetan or shamil submission and understand how they handled file data correctly)-chetan codes are also present in this GitHub.
+1)in server code,marked code snippet of handling usern,passwd,handling file -understand it,since working properly left temporarily.(client code snippet is understood,server code snippet here is some what complicated bcz involves using data present in file to check the credentials)-marked using ////////......code snippet.....////////(refer chetan codes in this github only and understand how he handled file etc correctly).
 
 2)writefile,sendfile,listdir fn code snippets.didnot understand completely.left temporarily bcz working fine.
 
