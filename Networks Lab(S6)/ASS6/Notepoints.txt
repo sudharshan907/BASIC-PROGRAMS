@@ -1,3 +1,5 @@
+*Note that my codes in this ass(FTAP) are not reusable/modular,i messed up this whole assignment i think,may be chetan codes are better than my codes.9chetan submission is also present inside this ass6(FTAP) folder.
+
 *I did this assignment only for marks of this assignment,no interest personally for me in this ass,file transfer codes also taken as it is from one snr submission.
 
 *For better context refer screenshots of sample run covering all cases pdf in screenshots.pdf 
