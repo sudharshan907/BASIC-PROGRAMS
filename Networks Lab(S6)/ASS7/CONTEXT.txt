@@ -8,6 +8,8 @@
 
 *Must follow all setup instr's given in ass pdf for smooth run of codes(all user files should be created manually(with their name only) in server directory and mymailbox.mail file inside every user folder.)
 
+*Mentioned that i used smtp protocol and pop3 protocol inside the server codes in readme file of github(in seperate repository) but actually didnot use those protocols and just used send(),recv() fn calls appropriately that's it.
+
 2)Notepoints abt codes:-
 
 *In while loop of strtok()(anywhere inside codes) might think in token2 we will get both username and password combined but not,refer gfg for this fn speciaality.(that splitting character must be const char data type only)-while splitting any sentence.
