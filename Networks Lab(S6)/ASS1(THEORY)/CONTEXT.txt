@@ -4,6 +4,8 @@ a)Evaluation:video(establishment & breaking)+quiz+no report required+video has t
 
 b)read ass pdf from "you have to use Internal network(intnet)....and upto last"-actual assignment description.
 
+(one VM is minimal installation machine when we are doing)-server machine or client machine is minimal,i didnot remember exactly
+*Might think we can simply clone other Ubuntu using 1st ubuntu to skip installation procedures.(but ubuntu is heavy weighted,consumes so much RAM) so having 2 full ubuntus and a wsl ubuntu itself inside 8gb ram and 512gb rom is not recommended.(remember we did a minimal installation of other Ubuntu to make Ubuntu some lighter)
 
 1)timeline of execution:-(actually this process is somewhat incorrect scroll down to 5)update... to see the exact process).
 *used wsl ubuntu as client(which initiates ssh connection) and one VM as server and other VM as attacker.type ifconfig in server to know its inet/ipv4 address.wireshark should be running and capturing in either server machine or client machine.running in both machines is good.
@@ -115,7 +117,7 @@ we can see rst packet_red packet in wireshark of server or client.
 1)Go to network settings in virtualbox after selecting the machine,We have to put all VM's in internal network setting and in below advanced settings box,in promiscuous mode select "allow all" option and remaining settings leave it as default.click ok.do for all 3 VM's and start 3 VM's.
 
 2)if typed Ifconfig,etc it will not show info like ip address,netmask,dgw etc.
-Now we have to set manually ipv4 address,netmask,DGW values.(we can choose any appropriate values).here we followed ideal diagram in ass pdf and used those ip addr,netmask(24 bits 1's),dgw addresses only for manual setting of client,server and attacker.do this for all 3 machines.click apply/save.
+Now we have to set manually ipv4 address,netmask,DGW values.(we can choose any appropriate values).here we followed ideal diagram in ass pdf and used those ip addr,netmask(24 bits 1's-mentioned as /24 in ass pdf indirectly=255.255.255.0),dgw addresses(mentioned in diagram) only for manual setting of client,server and attacker.do this for all 3 machines.click apply/save.
 
 3)select settings-network-settings symbol in wired box-ipv4-change from automatic(dhcp) to manual-give address,netmask,gateway values as mentioned in ass pdf.click apply.do this for server,client and attacker also.
 
