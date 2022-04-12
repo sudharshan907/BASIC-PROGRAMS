@@ -1,0 +1,238 @@
+1)NS3 installation i did in my laptop exactly
+
+Did Inside ubuntu inside Virtualbox:
+(This is actually a messed up installation process, remember it,will not work for python related things mostly and messed up too)
+
+Note:double hyphen implies command to run.
+
+*1st point in clg pdf,ignore 1st link,download from 2nd link.
+"sudo apt-get update"
+"sudo apt upgrade"
+
+*3rd point in clg pdf including that extraction of tar file too.
+
+*(In clg pdf)In 3rd big command they shared another picture of command in terminal bcz to show where are the spaces etc b/w lines.(if we copy paste whole command to terminal b/w lines new line is coming and terminal is taking it as enter and running that-which is a problem.so i pasted that in a text file and copy pasted line by line eliminating that new line and keeping spaces intact if there.(to know if there is a space b/w lines refer another image of same command in pdf in terminal)
+
+*5th point in clg pdf.
+
+*In 6th point,before 'enable' word in command,that is not a single long hyphen ,it is a double small hyphen '--'(This command running takes huge time -around 50-60 to complete)
+*In this command some files will not found msg will come in between don't worry.
+
+(This Build command is failing after 80% building is completed in 2500/3000 compilation step around)
+*I tried 3 times by increasing ram.but failed at same stage almost around 2500-2600/3000)(But for many of my friends if worked correctly according to clg pdf idk why it didn't worked for me).
+
+From here i take inputs from Bala murugan since clg pdf is failing continously.
+
+*Go to ns-3.35 folder location in terminal,
+*"./waf configure --enable-examples --enable-tests --disable-python"
+
+*Bala murugan said some dependencies of python are not installed in our system and python for ass is not required so disabling python here and error also came bcz some python dependencies are not installed or mentioned in big command.
+
+*"./waf"(takes more time be patient here)
+
+List of modules built will be displayed after completion.
+
+Now check whether sample programs are running or not.
+*Sample programs are there inside ns 3.35/examples/tutorial.
+*To run any .cc program put it inside scratch folder.
+*put terminal in ns-3.35 directory location,
+"./waf --run <filename>" or "./waf --run scratch/<filename>" 
+Don't give extensions to filenames in above command.
+Runs the program.
+similar to ./a.out in running c program
+
+*.cc programs are running correctly and .py programs are not running as of I know .I think installation for .cc is completed may be here.
+
+Now netanim installation:-
+
+Open terminal inside ns3allinone folder,"sudo apt-get install synaptic"
+"sudo synaptic" to start it.
+For Synaptic user manual refer hitesh Choudhary V-5 of ns3 playlist.
+
+Dependencies check before netanim:(watch V-5 for this 3 points)
+1.qt5-qmake is there instead of qt4-qmake
+2.didnot find exact one so installed whatever looked similar
+3.installed same exact file.
+
+*"make clean"(it says no rule to make target)(It showed some big msg for me.but no error)
+*"qmake NetAnim.pro"(inside netanim folder terminal location)
+*"make"(takes 3-4 mins)
+*./NetAnim(this is actually for opening the netanim application)
+
+Executed that last 2 pages in clg pdf instructions exactly.Jdk Installation and tracemetrics thing.
+
+To open some .tr files etc-(that java -jar tracemetrics.jar command is actually open tracemetrics application and from it select .tr file)
+
+Added some lines of code to first.cc(refer V-5 hitesh) and made a simple .XML file and opened in NetAnim,visuals came.(just checking netanim is working or not)
+
+*Tried V-6(installing eclipse ide) in hitesh playlist but failed bcz they are outdated steps.(to install and configure eclipse ide for better coding environment)
+
+Refer V-7 and V-8 of hitesh Choudhary for explanation of first.cc and second.cc.
+
+2)Content told in lab by teachers(short intro to ns3):-
+2008-start of network simulator
+2018-ns 3 version start
+Now latest ns-3.35 version
+Download and install,free open source
+Big simulator,3 years to learn completely(imp)
+Ns-2 involves c++ plus TCL(tough to code)
+Ns-3 c++ plus python,well documented info
+Condense pdf in eduserver
+Just create network topology(in ass)
+Deoxygen documentation is there for coding the assignment
+Nhc card, device driver,etc
+Helper classes are imp to code
+CSMA channel topology(carrier sensing multiple access collision detection-one of LAN technology)
+
+Tracemetrics application(.tr) is like other software which is similar to netanim(.XML) which displays the information beautifully from .tr files.for generating this files also we should write 2-3 extra lines of code inside codes.
+(Refer gfg articles for more extra info)
+
+3)NS3 hitesh Choudhary ns3 playlist condense
+
+Hitesh Choudhary youtube channel playlist of ns3 introduction condensed matter:
+(Remember these are videos posted 7 years back)
+
+V-1
+Refer gfg all intro articles abt ns3, simulation advantages, limitations etc
+*First get clarity abt why NS3 etc from quality intro to ns3 pdf(shared by clg)
+*www.nsnam.org-if any problem refer this website-standard ideal website.
+*ns3-open source and mostly used in networking industry-can prior know the side effects of actual implementation which is very good.
+
+Prerequisites for ns3:
+1)Basics of linux-traverse along the directories,edit directories,listing specific files etc
+2)basics of c++(need not be very good) and python(if want)
+
+Installation:-
+In windows or Mac -some what complicated to install and use etc (but possible)
+*Linux based systems are best for beginners.
+*Installing ns3 directly onto the system is not recommended,bcz may be some corruption so use VMware(best) or Virtualbox and inside it install and work on ns3.
+*Ubuntu desktop version is highly compatible with ns3.best for beginner.(he said 32-bit ubuntu is best but i am using 64-bit ubuntu)
+*And any ide(eclipse best) inside ubuntu.
+
+V-2:-
+Showed how to install Ubuntu inside VMware.
+NAT network setting will take data from host(windows) machine network connection
+
+V-3 and V-4:-(configuring ns3 and installing it and running the sample programs)
+Did not do this exactly in my laptop,refer other text where I wrote exactly what I have done in my laptop for installation.below is just condensed matter of what he said in his video
+He recommended to go through "www.nsnam.org/wiki/installation" article -which is standard.
+Smooth Installation is time consuming-be patient
+*3rd command in nitc instr's pdf is abt installing sub-dependencies and libraries on which ns3 package will build up smoothly.
+(There is a chance that some of dependencies in this command might have already downloaded and installed.while installing some softwares like chrome,MX player etc there will be dependencies also installed unknowingly)
+
+*Note that size of .bz2 is 27mb but folder size is around 90mb after extraction.
+
+*He installed synaptic but in clg pdf not mentioned to install it.i also didnot do it.(refer my installation notes for this info)
+
+*He Runned a big command (which is different from clg pdf) in description -for installing almost all dependencies
+
+*"./test.py -c core"-to test core libraries after building process,optional to run(takes some time)-tests should pass.(this is not there in clg pdf)
+
+*Sample programs are there inside ns 3.35/examples/tutorial.
+*To run any .cc program put a copy of any program inside scratch folder.
+*put terminal in ns-3.35 directory location,
+"./waf --run <filename>" or "./waf --run scratch/<filename>" 
+Don't give extensions to filenames in above command.(give only first as filename for first.cc program)
+Runs the program.
+similar to ./a.out in running c program
+
+*he is copying any program to scratch folder and running it.i don't know the reason why he is not running in the original directory itself.he said don't move simply and put copy of program to keep original program safe.
+
+V-5(installation of netanim and testing on first file)(just condensed matter,not done in my laptop)
+*Netanim:-Animated version of ns3.
+*To install netanim or ns3,some libraries must be installed before only.
+*using synaptic we can see whether they are installed or not and install them also.
+
+*"sudo synaptic"-starts synaptic
+If not installed,right click on it,mark for installation and click apply.
+*1.qt4-qmake-library
+*2.libqt4-dev-library
+*3.libxml2-dev-library
+*.cc programs produces netanim files in form of XML files and our system should be able to read them.(so libxml2-dev is needed)
+*In terminal move to ns3allinone/netanim folder inside Location.
+*"make clean"(it says no rule to make target after i runned)
+*"qmake NetAnim.pro"
+*"make"(takes 3-4 mins)
+*Now netanim pro is installed.
+*Do a sample run of netanim to test working or not.
+
+*Inside netanim folder,"./NetAnim"-starts the program(very similar to wireshark)-has user interface,we can open .XML files and open them.
+
+*Opened .cc file using gedit through terminal(if opened directly it is opening in vi/vim editor which i am not comfortable)
+
+*He added some lines of c++ code to first.cc to create a sample .XML file.(refer video for these lines)
+Runned the first.cc file,it also created .XML file in storage with assigned name.
+
+*Now started ./NetAnim(from that location in terminal) and opened created file and runned simulation.for basic understanding.
+
+
+V-6(install eclipse and configure it)
+Don't execute any of steps in this V-6,very outdated process,so many errors can come,i dropped the idea of ide
+*Eclipse or any ide is not a necessity but it is very imp for a beginner to edit or write code in ide bcz it will give suggestions etc which is more helpful,editing code in notepad is hell of a work especially for a beginner.
+
+*We will not run in ide(even though we can do it this is not recommended),we will use only for editing the code using facilities in ide that's it.running the program is normal only using ./waf....
+
+*Open terminal and type "java -version"
+*if installed it will show version of java.
+*"Sudo apt update"
+*if not installed type "sudo apt install default-jdk"(not inside some location,do this is normal homepage location)
+*Above 2 commands are required or not idl but I mistakenly executed both commands above.(update and jdk install)
+*Got to eclipse.org/downloads/packages/
+*select Eclipse ide for c/c++ developers,linux x86_64 and download it.(350mb)
+
+From here (3.40mins) messed up the process,some things are not working.didnot note down what i did also etc
+
+*Follow blindly article - for installing java in ubuntu(failed here but did upto sudo apt update step in article)
+*Article link:"wikihow.com/Install-Oracle-Java-JDK-on-Ubuntu-Linux"
+
+*Follow any new article for doing the same purpose.(left it)
+
+*Stopped this process,this video is 7 years old and some steps changed recently.so no ide for me finally.
+
+
+V-7:-(first.cc explanation) and
+V-8:-(second.cc explanation)
+
+*Didn't condense matter bcz there is so much to write if condensed,refer V-7 and V-8 directly for fast understanding
+
+4)Assignment question points:-
+
+My understanding of question and some observed points:
+
+Assignment question some points:
+
+They didn't mention delay(propogation delay) for some links(wires) and loss probability for some links.it means delay is negligible since they are closer and loss is also negligible since those wires are almost working correctly with no loss of packets.
+
+Remember always Bandwidth is measured in MB means it is 1000KB and not 1024KB
+
+If constructed topology then 80% work is done in assignment.
+
+Understand first.cc and second.cc and third.cc every line,will get whole clarity of what is happening exactly inside codes.
+
+5)About my codes,both original ass code and modificarion code.
+They are not perfect codes and not atleast almost near codes according to the description given in the pdfs.
+original code:
+I somehow messed up this ns3 assignment.Bala Murugan helped me and did 90% work.i just understood what he is doing that's it.
+in question they asked to use FTP server but i still used a udp server and they said file transfer so the packets should be continously going to reeceiver but i put 1 second delay for all packet inetervals which is wrong to do.they asked constant bit rate in 2nd transmission but i still used same process for 1st transmission 1s delay b/w packets and udp server and client itself.i deviated from ass pdf many times like i didnot include loss probability value ans many things deviated from ass pdf.
+My evaluator(cisco FullTime employee0 said we have to declare router seperately and it should not be a node simply like that.i didnot get what he is saying.
+Abt code some comments:
+Still dont know exact meaning of some lines in code (bala murugan either pasted from internet some code snippets or from previous files like first.cc ,second.cc,third.cc etc(i just took from bala murugan this code,didnot do on own)
+p2p1 is top left server to left router.
+p2p2 is bottom left server to left router
+p2p3 is middle 2mb link
+p2p4 is right router(not rightmost router) to csma/lan nodes
+p2p5 is from right router to wifi nodes.
+wifi_phy=physical space of wifi(indicating that they are nearer so wifi connection is there,we should specify this bcz wifi is wireless,important if two wifi spaces are there in a topology,both different wifi spaces so no connection b/w them like that.
+mobility=2D plane of wifi space.
+delatX and delatY are grid dimensions of wifi plane.
+gridwidth may be number of grids like that not sure.constant means that wifi nodes are stationary they will not move.
+server is receiver and client is sender in udpserver and client.so for udp client must specify destination node(ip) and port=9.
+stop before simulator run is required bcz wifi points are involved in the topology.if not stop befor erun,the process will not stop and we should stop using ctrl+c.if no wifi nodes this is not required.
+At Lat 2 lines of code to generate a .tr file to see all details like throughput etc,using tracemetrics application we can open those .tr files and see all details.
+
+modification code:
+with understanding of original code topology from balamurugan i found that second.cc is most nearer to this question and managed to do it simply in 10-15 mins.but did not do exactly some deviations are there from asked things.
+modificationcode comments:
+just took second.cc file and modified it easily according to the question,but deviated some things from assignment description.
+using understanding of above bala murugan original code i managed to do this.here also they asked continous run of pakcets but i send using 1s delay for every packet which  is wrong actually.
+ 
