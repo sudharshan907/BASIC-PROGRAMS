@@ -1,0 +1,179 @@
+a)Task 2 some notepoints before starting task 2:
+
+*jogi said quagga etc are not required as done by snrs.just zebra,ripd,ospf are needed he said.
+
+*If doing in redhat linux,quagga etc are not required,if doing in lubuntu (if 3 routers are lubuntu's quagga is required)-srijith said.
+
+*Zebra is a software,which contains ripv2 and ospf facilities,we have to install it and use those facilities.(srijith said)
+
+*Zebra is a server,ripd is a process or server,ospf is a process or server.
+
+*Ripd or ospf will run algorithms and give it to zebra server,it will edit the kernel routing table.ripd or ospf alone cannot edit the routing tables inside kernel.
+
+*Might think in task 1 part 2 routed itself is doing both things,running algo's and editing the routing tables.yes it is doing both the things there but that is outdated.has some other limitations.(srijith said) 
+
+
+b)Downloading and Installing routed/zebra files process for task1part2 and task 2:
+
+if everything worked fine d) part even without installing zebra and routed files,then they are already installed in system(if taken .ova file and used that then already installed things will be there,if installed a system using .iso file in virtualbox then we must install all these things. 
+
+(Power off the routers,For downloading use another interface(adapter3),put it in NAT mode and after starting machine make ip address allocation dynamic(dhcp etc) not static values(system settings,network)by selecting that extra interface only(mostly it will be automatic by default).connect laptop to internet and now type google.com and check connection to internet working or not.)
+
+link:http://legacy.redhat.com/pub/redhat/linux/9/en/os/i386/RedHat/RPMS/
+
+*Open above link,find routed and zebra files(they are in alphabetical order) and download both of them.
+[Direct link is not working for me,so opened "http://legacy.redhat.com" and followed the path by clicking continously path in url above.
+
+*Save this file to disk.open terminal go to location of file stored,type "ls" command for confirmation,that file should be displayed for "ls",then below command to install
+
+*rpm -i (downloadedfilename)-installs the facility (here zebra)
+
+*Do upto now in all 3 routers.(each router install both routed(for task 1 part 2) and zebra(for task 2 both part 1 and part 2)
+Installing zebra/routed files is ended here.
+
+
+
+c)Task 2 part 1 and part 2(no clarity why some things are done):(refer setup diagram)
+
+*Clear routing tables first
+*ripd service=rip version 2(RIPv2)
+*Install zebra in all 3 routers.(refer c) point above)
+
+
+*"cd /etc/zebra"(initially desktop location to zebra location)
+*"ls","emacs zebra.conf"-configure the file-one text file will be opened.type 3 lines below and ctrl+X and ctrl+S-save and close pop up.
+1.hostname <name>
+2.password <password>
+3.enable password <password>(same password value as above)
+*"emacs ripd.conf"-do same as above zebra.conf
+(Do upto this for all 3 routers)
+Check all endpoints connections by pinging them.all should be disconnected.(dont neglect this checking)
+
+
+Put terminal in /etc/zebra:
+Do for all 3 routers all below commands
+"zebra -d"-starts zebra
+"ripd -d"-starts ripd
+"telnet localhost 2602"-2602 is port for ripd service
+Give password: mentioned in above file
+rip1>"en"-enabling rip2
+Give password: mentioned in above .conf files
+rip#"conf ter"-configure rip
+rip(config):"router rip"
+
+Router 1 values:(just 2 network ids of 2 networks connected to router)
+
+"network 172.16.20.64/28"
+"network 172.16.20.80/28"
+"write"-saving   "end"  "quit"-exiting telnet
+
+Router 2 values:
+
+"network 172.16.20.64/28"
+"network 172.16.20.96/28"
+"write"   "end"  "quit"
+
+Sudhu router 3 values:
+
+"network 172.16.20.64/28"
+"network 172.16.20.112/28"
+"write"   "end"  "quit"
+
+
+After doing for all 3 routers ping all endpoints from all endpoints-they all are connected bidirectionally
+
+Now type route -n in all 3 routers and can see the routing tables.
+Metric value will be added automatically (hop count in rip,distance in ospf)
+
+"service ripd stop"-in all 3 routers shuts down ripd service.(wait 3-4 mins if entries did not clear)
+
+*Now check all endpoints they will not be connected and can check routing tables also,they will be cleared.
+
+*Task 2 part 1 ended here(final routing tables of all 3 routers in task 2 part 1 rip are there in report pdf)
+
+Task 2 part 2 start.
+
+"cd /etc/zebra"
+"emacs ospfd.conf"-same as above .conf files
+
+clear all routing tables check again.
+Do for all 3 routers all below commands
+"zebra -d"-starts zebra
+"ospfd -d"-starts ripd
+"telnet localhost 2604"-2604 is port for ospfd service
+Give password: mentioned in above file
+ospf1>"en"-enabling ospf
+Give password: password for ripd not sure
+ospf#"conf ter"-configure ospf
+rip(config)"router ospf"
+
+
+Router 1 values:
+
+"network 172.16.20.64/28 area 0"
+"network 172.16.20.80/28 area 1"
+"write"   "end"  "quit"
+
+Router 2 values:
+
+"network 172.16.20.64/28 area 0"
+"network 172.16.20.96/28 area 1"
+"write"   "end"  "quit"
+
+Router 3 values:
+
+"network 172.16.20.64/28 area 0"
+"network 172.16.20.112/28 area 1"
+"write"   "end"  "quit"
+
+Ospf metric values are not hop count,it is like distance almost.
+
+(wait some time to update the routing tables)Now ping all endpoints -will be connected
+
+"service ospfd stop"-in all 3 routers.
+
+(if msg of shutting down ospfd and ok came then only correctly stopped,if nothing came then actually ospfd is not stopped-this happened for me sometimes dont know why)-in this case some entries in routing table are not clearing so i used service network restart for clearing.it took some 1 min time but entries cleared.but temporarily only.after some time if we check routing tables.some entries again appeared bcz ospfd and zebra daemon processes are running in background.so i shutted down all router systems correctly without direct exit-now all entries got cleared permanently(until we add).and in sometimes entries are clearing after 3-4 mins even though shutting down msg and ok did not come.
+
+Now ping all endpoints nothing will be connected.
+
+Task 2 part 2 ended here.(final routing tables of all 3 routers in task 2 part 2 ospf are there in report pdf)
+
+
+d)Some extra unrelated things learnt during ass:-
+
+*In redhat linux,after power on ,if clicked mouse inside VM it will ask something and select capture.from now on wards,mouse will only work for inside VM,will not come out.if to come out Press ctrl then mouse input will be directed to actual windows pointer.(Virtualbox settings:this is in PS2 mouse case in system settings pointing device options only)
+
+*If after shutting down any VM if removed/disabled one adapter in network setting sof virtual box ,then after running/botting the system,it will ask a confirmation of removing that adapter(interface)-and will give 3 options.select remove configuration option.
+*if added new interface will again ask ,select configure option.
+
+*G Drive upload and link sharing:-(in lap)
+new,file upload,rename original file in its location,select location-will get uploaded.
+*Right click on video file,get link,give permissions to all and copy link and done.
+
+e)Extra advanced works to do if want in this ass:-
+
+1)Read 4 Links shared by me (articles) completely in networks group(whatsaap),links in whatsaap chat(for more and further info)
+
+2)understand clearly what are default values in routing table.(they may come according to network setup i guess, understand that relationship if want.
+
+3) i doubt whether the same assignment process works if 3 different laptops are there.bcz in same laptop we used intnet1,2,3,4 etc for 4 networks but when 3 laptops must connect to internet and how we can declare 4 networks and some other problems also may be.(even if 3 laptops connection to internet is not required-we can use switches and it's cables to create internal network according to 3 laptops diagram)
+
+f)Overall remained Doubts of entire ass2(both task 1 and task 2):
+
+*In question it is mentioned to use bridged node for interface 1 of VM(router) but in video they used intnet only in 2 interfaces.?
+
+*what are 3 CD's mentioned in task1?(snrs gave 0.5gb of ram each for all 6 VMs)-may use 6 redhat linuxes also fine i guess not sure
+
+*Any complicatedness in dealing with 2 adapters(interfaces)?,eth0,eth1 etc(both will have seperate terminals etc?
+
+*In ass pdf they asked check routing tables and routing msgs and asked diff with previous task 2 part 1.what is the answer?
+
+*In ass pdf ,in task 2 part 1 ,asked a q like what's the difference here b/w prev setup in task 1?
+
+*In task 2 part 1 also it asked like what's the difference here?
+
+*in both task 2 part 1 and task 2 part 2,they asked to check routing tables and routing msgs.how to check routing msgs and what to check here?
+
+*In ass pdf they asked check routing tables and routing msgs and asked diff with previous task 1 setup.what is the answer?
+
+*in ass pdf they asked any issues with routing msgs exchanged between them.what is that answer?

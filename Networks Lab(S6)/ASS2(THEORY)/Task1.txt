@@ -1,0 +1,141 @@
+Task 1 start:-
+
+a)installing VM's and network setup
+
+Installation and set up of whole internal network as of in appendix 1 will take more time compared to original task to be done in task 1.
+
+0)redhatlinux download link(3 .iso files) given in ass pdf are old versions.even if we have 3 .iso files which are latest also,their installation is some what complicated and so many errors can come in between.so follow below process where only 1 file(.ova)  is involved and that file is shared by shamil to me through pen drive.
+(That .ova file has some extra installations also already,for example routed command in task 1 part 2 worked for me even without downloading and installing it in the machine)
+
+
+3 endpoints can be windows or redhat linuxes that is not a problem.
+
+Installing redhat linux in virtualbox:-
+1)abhiram shared one .ova file(543mb)
+2)open virtualbox,file,import appliances,(source:local file system)select the file(543mb) and open,next,everything default,import.
+3)open settings,general-default,system ram to 256mb(or 300mb),changing pointing device from PS2 to usb tablet(just for mouse convenience-google it for more info), remaining everything is default,storage is also default.in general settings,change name if want, and bidirectional clipboard settings if want.username is root and password is password itself.
+5)shutting down the redhat system:main menu,log out,shut down,after power down msg appeared,close the entire tab.(or directly quit symbol on top right will also work simply but this is not recommended some errors can happen, shutting down uncleanly).
+7)that .ova file can be present anywhere in storage c drive or d drive etc,even after importing if we changed the location of file,that is not a problem bcz inside Virtualbox for every machine there will be seperate copy of redhat.ova file(543mb).
+
+
+*Cloning a VM,right click(not left click)on 3 dots ,select clone,change name and click next,full clone.(Make sure machine is powered off,otherwise cloning will not work)-saves time of creating/installing another VM's of similar kind.exact duplicate will be created with almost literally everything same.
+
+
+(Observed that for every extra clone completion,1.7 gb space is being consumed  in C drive.)
+
+*Installed one redhat linux using above procedure and cloned 5 other redhat linux machines using above cloning process.
+
+*Network adapter(in virtual box settings)  actual meaning is interface i guess,so adding extra adapter is like adding a new virtual(not physical) interface to the VM.
+
+*some matter about subnetting the given ip range in first image of report pdf,they are 4 network ids (not ip addresses of any)-here only interfaces(adapters in VBox settings) will have ip addresses.we can assign different network settings for each adapter(interface) seperately.
+
+
+1)all VM's should be set in internal network setting and assign values:-(manual assigning of values):-(according to network setup image in report pdf)
+*Don't assign network ID's to any host systems.(leave network id and use remaining)
+Ex:-dont assign 96/28 to any host,bcz it is the network id,from 97/28 you can use.
+*Open main menu,system settings,network,double click on specific interface,add 3 values(ip address,subnet mask(/28=255.255.255.240),default gateway(0.0.0.0-not next hop) etc
+*For 3 routers assign for 2 adapters seperately
+For all 3 endpoints put default gateway as connected router interface ip address(not 0.0.0.0)-why this exact reason idk
+(For ip address values refer image in report pdf)
+(Do this for all 6 VM's)
+
+*In apendix 4 diagram in ass pdf,setup of 3 laptops,host1nic,host2nic,host3nic are there.whuch are not there in appendix 1(we followed).for their ip addresses we can give any ip address which is not used inside that subnet.(so assign any ip address which is not assigned already to all 3 routers nic1 cards.
+
+For 3 routers each have 2 adapters(2 interfaces given in setup diagram) and 3 endpoints each have only one adapter(one interface only)
+
+
+*Initially after setting all 6 VM's according to picture,all devices in same network can ping each other.router can ping with connected corresponding endpoint-any endpoint has no connection with any endpoint initially.(everything is based on name of internal network setting)
+
+*If in same laptop suppose one adapter in one VM and one adapter in one VM are assigned to internal network setting and both with same name say "samplename",then those two will be in same network technically.(don't know what happens if they are in different laptops)-using this facility a network(containing 4 subnets) using 6 VM's as in appendix I(ass pdf) can be constructed.
+Note:suppose adapter1 in one VM has same name as adapter2 in other VM(both in internal network setting) ,then we expect both to be in same internal network but not actually. it is not working like that.
+For matching both adapters also must be same number.
+So,only if adapter(k) in one VM has same name as adapter(k) in other VM(both in internal network setting) ,then both VM's will be in same network.
+
+*So here in this ass context,for one interface of router 1 to be in same network as one interface of endpoint,use same adapter sequence number too.
+
+Used:-
+Router1:-adapter1:intnet1,adapter2:intnet0
+Router2:adapter1:intnet2,adapter2:intnet0
+Router3:adapter1:intnet3, adapter 2:intnet0
+End point 1:adapter1:intnet1,adapter2:(disabled)
+End point 2:adapter1:intnet2,adapter2:(disabled)
+End point 3:adapter1:intnet3,adapter2:(disabled)
+
+
+b)starting actual task 1 part 1:
+
+*disabling firewalls in all 6 VM's:-
+
+*In redhat linux,main menu,system settings,security level,select no firewall option-do for all 6 machines(bcz firewall may filter or block some packets)
+
+*Now try to ping all endpoints from all endpoints (ping should not work) if setup is crct.(total 6 pings)
+*Take note of all 3 default routing tables using "route -n"
+
+
+
+5)Static routing is like putting entries in routing table manually as exactly said by raudra classes.dynamic is like softwares handling routing tables using RIP/OSPF(DVR/LSR)."vswitch" name in diagram(in ass pdf) is equivalent to a seperate internal network in virtualbox.
+
+
+*Make ip forwarding =1 in all 3 routers.
+
+
+11)"route -n" gives routing table at that instant."vi /etc/sysctl.conf" opens a editor-change ip forwarding value to 1(suing vi editor rules and save that change and exit)-makes VM a router provided some entries are there in routing table(assigned manually/using protocols automatically),ping can be used to check whether two machines are connected or not.(make sure to check bidirectional connection is also there or not)-bcz if reached fr E1 to E2.it might not reach E2 to E1.
+
+
+Router 1:
+1.ip route add 172.16.20.96/28 via 172.16.20.66 dev eth0
+2.ip route add 172.168.20.112/28 via 172.16.20.67 dev eth0
+
+
+Router 2:
+1.ip route add 172.16.20.80/28 via 172.16.20.65 dev eth0
+2.ip route add 172.16.20.112/28 via 172.16.20.67 dev eth0(same as router1 2nd entry don't worry)
+
+
+Router 3:
+1.ip route add 172.16.20.80/28 via 172.16.20.65 dev eth0(same as router 2 1st entry don't worry)
+2.ip route add 172.16.20.96/28 via 172.16.20.66 dev eth0(same as router 1 1st entry don't worry)
+
+*For understanding these entries refer setup diagram in report pdf.
+
+*dev=through,nexthopvalue(before dev in above all commands) is the intermediate interface b/w router and dest network.(not sure abt this,like what should be next hop).
+
+12)note that we are not sending a packet to router(VM) and telling to send to dest.router only helping us automatically by taking packet and sending to dest network automatically.how it automatically detects is i don't know (how possible i don't know)-theoritically-total 2 entries addition to every router=6 entries(for 3 routers).
+
+*Firstly i thought with knowledge of lab ass 5 on DVR and LSR, Destination column in entries might be specific host id,but destination is network id(sub network id) itself,bcz it decreases the no of entries in routing table.
+
+
+
+c)Task 1 part 2:-(maintain same network setting as appendix 1 initially)
+
+
+*Refer task 2 text b) part of text of how to download and install routed file/facility.
+Do that for all 3 routers.
+With this all facilities(RIPv1) installed for task 1 part 2.
+
+(Make sure that all 6 VM's are running and no one is powered off)-while typing routed command.
+
+
+1)reset the routing table entries using "service network restart"-for 3 routers.dont change ip forwarding value to 0 again bcz here also it should act as router.type command "routed"-in all 3 routers-will start dynamic routing and routing tables will get updated automatically (wait 1-2 mins to get update)-At last,ping all endpoints bidirectionally to see connection correctly.
+routed-"routedaemon"-it is a seprate light process like thing which will continously run in the machine(continous updation of routing table will happen)
+2)purpose is like buying router is costly.so using VM as router here for free.
+3)for detecting rip version snrs used ping and captured in wireshark and saw version.but rip packets will only get transferred during routing table updation right?for pinging rip packets will not be transferred i guess(may be for every 5 sec they update something like that also can happen,but proof?).
+
+*in dynamic routing,it is adding 2 extra entries for every router.so there 12 entries.(4 entries for every router).
+
+
+4) comparison of  routing table of task1 part 1 (static) and task1 part 2(dynamic).
+ 
+a)in dynamic they added metric values also for some entries.
+
+*Metric meaning in any automatic routing entries updation ,metric will be there,indicates no of intermediate hops to reach destination in case of RIPD and in case of OSPF metric is distance/edge weight etc.
+
+
+*We also can add manually metric values but it may be complicating the things here.metric is just like extra info of how much or how many you have to pass next to reach it.
+
+
+b)in manual for every router we added only 2 extra entries but in dynamic algo's are adding 4 extra entries for every router.(just it is also mentioning other interface of router as next hop for reaching the same Destination that's it).
+
+Task 1 ended here.
+
+
