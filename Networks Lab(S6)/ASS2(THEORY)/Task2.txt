@@ -1,5 +1,7 @@
 a)Task 2 some notepoints before starting task 2:
 
+*Refer Zebra.pdf(shared by sir-so official article) for more info of zebra and its details.i didnot read and understand it bcz already some toppers know the actual process to setup zebra and use it,so i learnt from them directly.below is the process said by some toppers which is working correctly.
+
 *jogi said quagga etc are not required as done by snrs.just zebra,ripd,ospf are needed he said.
 
 *If doing in redhat linux,quagga etc are not required,if doing in lubuntu (if 3 routers are lubuntu's quagga is required)-srijith said.
@@ -152,11 +154,17 @@ new,file upload,rename original file in its location,select location-will get up
 
 e)Extra advanced works to do if want in this ass:-
 
-1)Read 4 Links shared by me (articles) completely in networks group(whatsaap),links in whatsaap chat(for more and further info)
+0)read zebra.pdf for more info and more theoritical knowledge of zebra.i didnot read it bcz direct process is already known from toppers.
+
+1)Read 4 Links(articles) collected by me from google,links(for more and further info)
+link 1:
+link 2:
+link 3:
+link 4:
 
 2)understand clearly what are default values in routing table.(they may come according to network setup i guess, understand that relationship if want.
 
-3) i doubt whether the same assignment process works if 3 different laptops are there.bcz in same laptop we used intnet1,2,3,4 etc for 4 networks but when 3 laptops must connect to internet and how we can declare 4 networks and some other problems also may be.(even if 3 laptops connection to internet is not required-we can use switches and it's cables to create internal network according to 3 laptops diagram)
+3) i doubt whether the same assignment process works if 3 different laptops are there.bcz in same laptop we used intnet1,2,3,4 etc for 4 networks but when 3 laptops must connect to internet and how we can declare 4 networks and some other problems also may be.(even if 3 laptops connection to internet is not required-we can use switches and it's cables to create internal network according to 3 laptops diagram)-srijit said w ehave to use switches for setting up internal network etc like that-no complete clarity for me on this.but know that it is time consuming process.
 
 f)Overall remained Doubts of entire ass2(both task 1 and task 2):
 
