@@ -157,10 +157,10 @@ e)Extra advanced works to do if want in this ass:-
 0)read zebra.pdf for more info and more theoritical knowledge of zebra.i didnot read it bcz direct process is already known from toppers.
 
 1)Read 4 Links(articles) collected by me from google,links(for more and further info)
-link 1:
-link 2:
-link 3:
-link 4:
+link 1: https://www.tecmint.com/setup-linux-as-router/
+link 2: https://www.networkreverse.com/2020/06/how-to-build-linux-router-with-ubuntu.html?m=1
+link 3: https://www.sysprobs.com/guide-vmware-virtual-machine-lan-router-networks
+link 4: https://www.computernetworkingnotes.com/linux-tutorials/how-to-configure-and-use-linux-as-a-router.html
 
 2)understand clearly what are default values in routing table.(they may come according to network setup i guess, understand that relationship if want.
 
