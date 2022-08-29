@@ -1,0 +1,13 @@
+1)Csv file:comma seperated values(simple file format to store tabular data)
+It is the most popular file format for importing and exporting spreadsheets and databases.
+ 
+2)Php:read php tutorial in gfg
+Article:https://www.geeksforgeeks.org/php-tutorials/
+*Inside .html file only html tags will work and php code will not work but inside .php file we can put html tags and php code also both will work if syntaxes are crct
+*Latest version of php is 7.4 as of now
+
+3)Html:
+https://www.geeksforgeeks.org/html-introduction/
+
+4)Xampp web server:
+A cross-platform web server used to develop and test programs on a local server. It is developed and managed by Apache Friends and is open-source. It has an Apache HTTP Server, MariaDB, and interpreter for 11 different programming languages like Perl and PHP. XAMPP Stands for cross-platform, Apache, MySQL, PHP, and Perl.It allows you to build a website on a local web server on your computer.Stores data locally.

@@ -1,0 +1,60 @@
+*Process done in lab by me:In Ubuntu Linux OS system(lab system assigned to me basically) go to files,other locations,opt,xampp,htdocs and paste my .php file in it.
+
+*Now open terminal from any location and type command of starting xampp interface(same as control panel in windows) and click start all(there are 3 one is xampp/lampp,other is MySQL and other i forgot).now go to browser and type localhost and my .php file name.Over.
+
+*Command to start xampp control panel(interface) in linux-this is missing i didnot store this command,command in instrs pdf are not working properly.
+
+A)Notepoints of original ass version 1:(A database in place of .csv file for storing data)
+
+*Introductory points:
+1)Killed process of Mysql which is using 3306 port since I used for library project in past
+So listed all listening Ports in command prompt and got the pid of that listening process and killed it using pid to free the port 3306(or kill from task manager)
+2)My idea is store in database table itself and for displaying convert database table to .csv file later initially
+3)Web page using html and connect this html form to .php program using POST ,php program will take info filled through POST method and will check the data and will act accordingly on the database and manages the data
+4)Database:Single table:roll no(primary key),firstname,lastname,email-created in xampp server phpmyadmin(in phpmyadmin inside xampp server my database is there, definitely present in some location inside my laptop not a cloud database ofcourse,location is c:xampp/mysql/data i guess not sure)
+5)Html form:designed a html form beautifully
+6)If we do not create student.csv file on own from code itself and if we are creating manually frok outside then file insert is working correctly in windows OS but in any Linux based OS file operations are not working properly and some undefined behaviour is happening may be bcz of soime permission issues in linux based OS.so create file from code itself,first check file exists or not and if not create using fopen with write parameter.(can see inside code at start of php tag)
+
+*My Assumptions:
+1)took rollno first(instead of first name) in html form and database table itself in storage rollno column first
+2)In my delete deletes the tuple only if all columns matches not only roll no -so delete requires all fields to be not null.(if to modify to rollno only delete directly just remove extra conditions in SQL query inside delete fn)
+3)Insert works only if all 4 fields are filled
+Delete works only if all 4 fields are filled
+Search works if just rollno field is filled,ignores other fields even filled
+Update:works only if all 4 fields are filled
+Display:works if nothing is filled,ignores other fields even filled
+4)stored and printing from database in phpmyadmin only and not from .csv file (we can export .csv file from database in phpmyadmin)
+
+*All functionalities listed here:
+1)INSERT:If any field is missing fill msg,if all fields are filled,successful insertion or duplicate entry msg
+2)delete:if any field is missing fill msg,if all filled,successful deletion or tuple not present or error
+3)Search:if roll is empty,fill msg,if roll filled,prints student details or not found msg
+4)update:if any field missing,fill msg,else successful updation or student not found with roll no
+(Edge case not handled:if entered same details again then any row will not be affected so not found msg itself will come in this case also)
+5)Display:print all student details or no students in database
+6)both html and php code is present in same .php file,first html form will get executed(displayed) and if any of the button is clicked php code will execute,php code will execute repeatedly for every click of any button in html form
+
+*User manual:
+1)Install latest version of xampp server correctly in laptop
+2)create database in phpmyadmin service of xampp server
+3)paste index.php file in htdocs folder of xampp folder(by creating another folder inside htdocs folder)
+4)in .php file,change username and password and database name accordingly
+5)open xampp control panel and start Apache and MySQL(if any port bounded error,see error log and free ports by killing processes using pids)
+6)open browser and go to localhost/ass1/index.php and it will work
+7)for all database related checking you can open new tab and type localhost/phpmyadmin and open database too see it's status everytime
+
+
+
+B)Original ass version 2:(Exactly according to ass pdf of csv file for storing data)
+
+*Extra Notepoints apart from mentioned above:
+1)in Delete i changed functionality to just take roll no and delete record containing rollno(ignoring other atts)
+delete:a)if rollno field is missing,fill msg,b)if rollno filled,successful deletion or tuple not present msg    
+2)In updation:if all field are exactly same,will work crctly here not like before code edge case of printing not found if same details are entered.refer update functionality of db php file
+3)in this csv i changed to taking first name and last name first and then rollno -exactly as mentioned in ass(both in html form and csv file data records)
+
+
+*User manual extra points:
+1)No need of connection with database.just fopen will work
+2)Need not start MySQL in xampp bcz no SQL is used in this csv .php code
+3)Might think why xampp web server if no database connection,yeah true but we don't have php installed so we can't run php files independently whereas xampp contains php inbuilt and Apache Web server to open through browser,so we are using them that's it and If we have php installed in vs code or some other ide then this code will run without xampp web server.
