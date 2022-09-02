@@ -2,7 +2,6 @@
 Open EdrawMax Application/File/New/Software & Database/Database Modeling/Chen ERD/Blank Drawing
 Drag and drop corresponding symbol from the palette,Double click the line between Entity type and relationship type to enter the cardinality constraints etc
 
-
 2)For all Theory abt ER model refer only 7th rev book section-1,quality and straight forward content without any extra matter.
 
 3)Notepoints of ER diagram:
