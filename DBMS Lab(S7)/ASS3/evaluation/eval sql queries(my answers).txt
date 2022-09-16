@@ -1,0 +1,27 @@
+
+1)
+
+select distinct did,dname from (directors natural join directs natural join movie natural join productioncompany) where pname='a';
+
+updates:print phno details of directors also bcz it is asked to print all details of directors(i missed this)
+
+2)
+
+with temp as (select mid,count(cid) as ct from (movie natural join book natural join customer) group by mid)
+
+select mname from (movie natural join temp) where ct>='2';
+
+updates:better to avoid extra temp table and include in single query itself
+
+3)
+
+select mname from (directors natural join directs natural join movie) where dname='a';
+
+
+4)
+
+select distinct cname from (customer natural join payment natural join book natural join movie) where ptype='a' and mname='a';
+
+
+
+
