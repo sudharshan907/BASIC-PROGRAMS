@@ -1,0 +1,25 @@
+*Operating xampp in linux based OS
+Opening xampp/lampp in any linux based OS:
+open terminal from anywhere(assumed lampp already installed)
+cd /opt/lampp
+ls
+sudo ./manager-linux-x64.run
+starts xampp application
+click start all button in application
+Now open any browser and type localhost/phpmyadmin
+create a database with some name and paste whole database.sql file in it and run it
+
+
+*Finally learnt how to declare a foreign key in phpmyadmin or mysqlqork bench(i am not able to declare a foreign key during my library management system)(directly from SQL code scratch)
+
+
+
+
+
+
+
+
+
+
+
+
