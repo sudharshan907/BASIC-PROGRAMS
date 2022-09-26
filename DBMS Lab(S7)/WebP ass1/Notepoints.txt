@@ -1,0 +1,65 @@
+*Might get a doubt that if we save 4 web pages(html+css files) in any GitHub account,anyone can still access even without login but here only html+css codes will be visible and they will not be interpreted by our browser bcz browser does not know what to interpret etc(we will get files instead of pages in case of disabled GitHub pages)
+
+*So to get a final output of html+css pages we must host it somewhere so that instead of code only o/p(pages) are visible to users(clients)
+
+*Now our requirement is we need 4 webpages(4 html codes)(home page, members page, resources page,contact page)-actually css is not required here but better to have it for styling the pages
+
+*Balamurugan developed 4 webpages.
+
+
+a)index.html-placed this outside of any folder to make this default (to avoid putting path in main url)
+Imported 2 css files theme.css and navbar.css,styled button tag,using nav tag(inbuilt tag) a nav bar and 4 textboxes with hyperlinks(4 pages) associated with it.home with same hyperlink itself.a learn more button(nothing linked to it actually).button style declared explicitly but bala murugan said it will apply to all buttons inside that file,since button is a inbuilt element
+
+FAQs abt index.html code:
+A)why mentioned current word in nav tag?why not for other 3 textboxes?in 2nd file current there for 2nd link and so on why?
+Ans:(only to style visible page entry in navbar with diff colour) bcz to make current page entry in nav bar look different (in navbar.css file diff colours for normal a tag and a current tag)
+
+B)why put id=navbar?is it necessary?is it bcz navbar.css style to apply here?
+Ans:yes,necessary to apply styling which is codes in navbar.css file.it is not bcz of navbar css file to apply here but navbar,navbar a,navbar current tags to apply here.(file is already imported,no need to import/specify it again,here specifying only defined styles inside that file)
+*If style is declared directly on elements,(like button in this same file),no need to specify anything,see button of learn more in same file,will understand.
+
+b)members.html
+Imported 3 style files
+Same nav bar
+Just a table of data(no DB just hardcoded data inside html)
+
+
+c) resources.html
+Imported 3 style files
+Same nav bar
+Coming soon msg
+
+d)contact.html
+Imported 3 style files
+Same nav bar
+Just list of contact details with little styling
+
+E)3 css styling files(navbar.css,tablestyle.css,theme.css)
+
+
+Hosting in GitHub pages:
+Created seperate GitHub account for project-created one repository in it paste all pages(with css) there and host it using GitHub pages.
+GitHub page-a inbuilt facility to host our websites(but only static websites) provided by GitHub company(our website will be hosted by GitHub servers itself)
+Open repository,click settings,go to pages,select the branch(main mostly),click save.(after saving GitHub pages feature will automatically gets enabled-no way to enable seperately)
+
+
+(dynamic web page facility is not possible without javascript on client side)
+Ex:-in dynamic webpage,if we want time to display in webpage(time when server takes it), possible.but in static webpages it is not possible the time that is hardcoded in html already only that will come.
+
+Server side:
+Java libraries,python libraries,node js,php(for dynamic websites)
+Our project:php or node js
+DBMS:MySQL,oracle
+
+Client side:
+Javascript,html,css,react js
+Our project: javascript,html,css
+
+
+
+
+Answers:
+1.url will be https://<GitHub username>.github.io/<repository name or path>
+(https://webpgroup25.github.io/WebProject/pages/members.html)
+
+2,3,4-refer shamil,cliford,balamurugan 3 answers pdfs
