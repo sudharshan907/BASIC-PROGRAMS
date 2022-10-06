@@ -1,27 +1,29 @@
+*Follow order of joins correctly as in the diagram
+
+*abin avoided natural join and used conditions only in most basic way(used alias for shortening table name in conditions-optional)
 
 1)
 
-select distinct did,dname from (directors natural join directs natural join movie natural join productioncompany) where pname='a';
-
-updates:print phno details of directors also bcz it is asked to print all details of directors(i missed this)
+Query:select distinct did,dname from (directors natural join directs natural join movie natural join productioncompany) where pname='a';
+updates:
+a)print phno details of directors also bcz it is asked to print all details of directors(i missed this)
 
 2)
 
-with temp as (select mid,count(cid) as ct from (movie natural join book natural join customer) group by mid)
+Query 1(temporary table):with temp as (select mid,count(cid) as ct from (movie natural join book natural join customer) group by mid)
 
-select mname from (movie natural join temp) where ct>='2';
+Query 2:select mname from (movie natural join temp) where ct>='2';
 
-updates:better to avoid extra temp table and include in single query itself
+updates:
+better to avoid extra temp table and include in single query itself
+below query still works according to question,but having said that not sure whether if it is correct or not in cases of diff mid's having same mnames etc
+Query:select mname,count(cid) as ct from (customer natural join book natural join movie) group by mname having ct>='2';(not tested in lab by evaluators,just according to abin this also is fine)
 
 3)
 
-select mname from (directors natural join directs natural join movie) where dname='a';
+Query:select mname from (directors natural join directs natural join movie) where dname='a';
 
 
 4)
 
-select distinct cname from (customer natural join payment natural join book natural join movie) where ptype='a' and mname='a';
-
-
-
-
+Query:select distinct cname from (customer natural join payment natural join book natural join movie) where ptype='a' and mname='a';
