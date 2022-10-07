@@ -1,0 +1,67 @@
+Actually there are 2 sets of q papers and i was alloted set A q papers
+
+part 1:(10M)(9.25/10)
+drawed ER diagram and relational model in paper and submitted it for correction(so dont have it but for relational model can refer part 2 designer diagram)
+
+viva:(6M)(6/6)
+very simple qs since chill TA for me
+
+part 2:(14M)(12.75/14)-12 SQL queries
+for database creation code refer .sql file,went to operations tab and used interface there to implement the database(assumed primary key for some tables like holds even though they didnot mention primary key in diagram,but coming to foreign key i didnot find an option there,so added extra column of foreign key constraint at table level-raw sql code,after this went to designer and che ked everything correct or not abt FK constraints
+
+1)
+alter table branch add noofstaff int;
+
+2)since no att of phno in user relation,used userphone table here
+alter table userphone drop column phno;
+
+3)i interpreted this like printing bank names with highest cashlimit value but q is not abt this,q is abt sorting the bank names based on cashlimit value in descending order(using order by desc)-but by explaining how to write this query TA gave marks for this
+select bname from (bank natural join atm) where cashlimit=(select max(cashlimit) from atm);
+
+4)
+
+select bname from bank where bname not like 'S%';
+
+5)
+select aid,bname from (atm natural join bank) where cashlimit>'10000';
+
+6)
+select name from (bank natural join branch) where state='kerala' and bname='south india bank';
+
+7)i interpreted this like joint account means account having multiple users and that is only q but TA said account type should be joint,i said then it is very simple and told the query according to that-but deducted 1 mark-its ok bcz she didnot run queries and check-just by seeing she gave marks
+
+select uname from (user natural join visits natural join atm natural join holds natural join accounts) where aid='1' and ano in (select ano from (account natural join holds natural join user) group by ano having count(uid)>1); 
+
+1 mark deducted here in 7th query
+
+8)
+
+select count(*) from branch where name='sbi' and country='india';
+
+9)
+create table a(
+sudh int,
+primary key(sudh)
+);
+create table b(
+cid int check cid>'3',
+mid int default null  (or default '2' etc)
+fid int references a(sudh) on delete cascade on update cascade)
+);
+
+
+10)
+
+select uname from (user natural join holds natural join account natural join branch natural join bank) where bname='sbi'
+union
+select uname from (user natural join holds natural join account natural join branch natural join bank) where bname='canara';
+
+11)-0.25 here,i interpreted like cards is equivalent to no of account a user has adn TA said it is wrong and i should join with atm table
+select bname,count(ano) from (branch natural join account natural join bank) group by bname;
+
+
+12)
+
+select uname from (user natural join txn) group by uname having count(tid)<'5';
+
+
