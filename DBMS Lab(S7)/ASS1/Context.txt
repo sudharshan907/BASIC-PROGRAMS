@@ -40,6 +40,8 @@ Display:works if nothing is filled,ignores other fields even filled
 3)paste index.php file in htdocs folder of xampp folder(by creating another folder inside htdocs folder)
 4)in .php file,change username and password and database name accordingly
 5)open xampp control panel and start Apache and MySQL(if any port bounded error,see error log and free ports by killing processes using pids)
+detailed procedure:in error log file see which port is blocked,go to windows command prompt and type "netstat -ano | findstr :3306"
+will get pid of process using that port,then go to task manager->details and search manually for pid and click on end task.
 6)open browser and go to localhost/ass1/index.php and it will work
 7)for all database related checking you can open new tab and type localhost/phpmyadmin and open database too see it's status everytime
 
