@@ -1,9 +1,3 @@
-*Process done in lab by me:In Ubuntu Linux OS system(lab system assigned to me basically) go to files,other locations,opt,xampp,htdocs and paste my .php file in it.
-
-*Now open terminal from any location and type command of starting xampp interface(same as control panel in windows) and click start all(there are 3 one is xampp/lampp,other is MySQL and other i forgot).now go to browser and type localhost and my .php file name.Over.
-
-*Command to start xampp control panel(interface) in linux-this is missing i didnot store this command,command in instrs pdf are not working properly.
-
 A)Notepoints of original ass version 1:(A database in place of .csv file for storing data)
 
 *Introductory points:
@@ -45,6 +39,10 @@ will get pid of process using that port,then go to task manager->details and sea
 6)open browser and go to localhost/ass1/index.php and it will work
 7)for all database related checking you can open new tab and type localhost/phpmyadmin and open database too see it's status everytime
 
+Done in lab by me:
+*Process done in lab by me:In Ubuntu Linux OS system(lab system assigned to me basically) go to files,other locations,opt,xampp,htdocs and paste my .php file in it.
+*Now open terminal from any location and type command of starting xampp interface(see below) and click start all(there are 3 one is xampp/lampp,other is MySQL and other i forgot).now go to browser and type localhost and my .php file name.Over.
+*Command to start xampp control panel(interface) in linux:open terminal from any location,"cd /opt/lampp","ls",see file name of manager linux run,"sudo ./manager-linux-x64.run"-starts xampp application in system
 
 
 B)Original ass version 2:(Exactly according to ass pdf of csv file for storing data)
