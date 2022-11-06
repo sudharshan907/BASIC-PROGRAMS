@@ -1,0 +1,6 @@
+2 hrs time for coding B-Tree functionalities
+search,print,insert-3 marks(0/3)-only 20-25 members done this(i should have done this,i didnot beleive in myself actually that is the reason i didnot even try)-seeing code in C one day before and byhotting also would have been better,but didnot even attempt it
+delete-3 marks(0/3)-only 5-6 members done this in 120 students
+viva-4 marks(4/4)-just asked theory qs like diff b/w b-tree and b+tree etc,independent of above codes
+
+For whole theory refer 9th rev book File Structures section,not condensed it bcz if i have to condense 80% of matter should be there in the condense,to revise just read whole matter 2 times
