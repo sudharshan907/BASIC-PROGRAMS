@@ -1,0 +1,60 @@
+A)learnt small precautions in lab eval setup:
+*only after creating some table in database,.db file will be visible in the directory.
+*so,in sqlite,just naming the database is not sufficient,create atleast one table in it for file to be visible.
+*once changed the name of the .db file,restart the sqlite3 using diff .db name in "sqlite3 newname.db",otherwise error will come in sqlite if renamed the .db file in the directory in between.
+
+
+B)Follow slides for setup in lab eval
+data.db(in extracted inside folder)
+my own queries for creating database during lab(SET A only)
+create table sf(name1 varchar(20) primary key,bestf varchar(20));
+
+insert into sf values('a','b');
+insert into sf values('b','a');
+insert into sf values('c','a');
+
+create table ho(name2 varchar(20) primary key,hob varchar(20));
+insert into ho values('a','h1');
+insert into ho values('b','h2');
+
+
+C)(my answers are messy but abin answers might be clean,better to follow his answers for endsem prep)
+1.correct but printing double time
+\project_{n1,bf1}(\rename_{n1,bf1} sf \join_{n1=bf2 and bf1=n2}  \rename_{n2,bf2} sf);
+
+2.correct
+primary : (\select_{name1 = 'a'} (sf \join_{bestf=name2} ho) );
+
+final :\project_{hob} (\select_{name1 = 'a'} (sf \join_{bestf=name2} ho) );
+
+3.correct but printing double time
+
+basic:(\project_{name2,hob,bestf} (ho \join_{name1=name2} sf)  )
+
+old:
+\project_{n1,bf1} (  
+(
+\rename_{n1,h1,bf1} \project_{name2,hob,bestf} (ho \join_{name1=name2} sf)  ) 
+\join_{bf1=n2 and h1!=h2}
+(\rename_{n2,h2,bf2} \project_{name2,hob,bestf} (ho \join_{name1=name2} sf)  )
+)
+\intersect
+\project_{n1,bf1}(\rename_{n1,bf1} sf \join_{n1=bf2 and bf1=n2}  \rename_{n2,bf2} sf)
+;
+
+simplified:
+\project_{n1,bf1} (  
+(
+\rename_{n1,h1,nm2,bf1}  (ho \join_{name1=name2} sf)  ) 
+\join_{bf1=n2 and h1!=h2}
+(\rename_{n2,h2,nm1,bf2} (ho \join_{name1=name2} sf)  )
+)
+\intersect
+\project_{n1,bf1}(\rename_{n1,bf1} sf \join_{n1=bf2 and bf1=n2}  \rename_{n2,bf2} sf)
+;
+
+
+4.not my own idea,a jnr idea,if two diff students have same bestfriend then definitely that student is bestfriend of multiple students
+(will not work if asked atleast 3,4,5 students etc,will only work for finding atleast 2 students special case)
+
+\project_{bf1}(\rename_{n1,bf1} sf \join_{n1<>n2 and bf1=bf2}  \rename_{n2,bf2} sf);
