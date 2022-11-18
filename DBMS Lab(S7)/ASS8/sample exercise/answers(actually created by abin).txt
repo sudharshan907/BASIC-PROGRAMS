@@ -1,0 +1,24 @@
+create (john:employee {emp_id:111, name:'john', gender:'male', salary:12000, dept:'ABC'})
+create (alice:employee {emp_id:112, name:'alice', gender:'female', salary:30000, dept:'PQT'})
+create (bob:employee {emp_id:113, name:'bob', gender:'male', salary:14000, dept:'ABC'})
+create (tom:employee {emp_id:114, name:'tom', gender:'male', salary:20000, dept:'RST'})
+
+
+create (ABC:department {dept:'ABC', location:'Pune'})
+create (PQT:department {dept:'PQT', location:'Noida'})
+create (RST:department {dept:'RST', location:'Delhi'})
+
+
+match (e:employee),(d:department) where e.dept = d.dept create (e)-[:worksIn]->(d) return e,d
+
+
+referred tutorialpoint website for count(),order by,limit etc syntaxes
+Q1. match (e:employee) return count(*)
+Q2. 
+highest:match (e:employee) return e.name order by e.salary desc limit 1
+smallest:match (e:employee) return e.name order by e.salary asc limit 1
+Q3. match (e:employee) return sum(e.salary)
+Q4. match (e:employee) where e.gender='male' return count(*)
+Q5. match (e:employee)-[r:worksIn]->(d:department) return d.dept, count(*)
+above query is actually a join,and no need to mention group by for d.dept like in sql(syntax is like that why dont know)
+Q6. match (e:employee)-[r:worksIn]->(d:department) return d.dept, count(*) asc
