@@ -1,0 +1,83 @@
+a)neo4j usage in lab
+search neo4j,open it
+terminal will open,wait for 2 mins literally,application will open
+create new db,click start,click open in browser option
+ready now
+
+
+
+b)Viva Q's for me:(struggled a bit,but evaluator gave me marks)
+*cql vs SQL
+*optional match vs match in CQL
+*Delete vs remove in CQL
+
+
+c)my answers:(pdf shared by clg are accessible during evaluation too for referring all syntaxes)
+points learnt:
+*better to give foreign keys in RDBMS same att name in both tables
+
+
+
+create(algo:book{isbn:5477,title:'algo',author:'cormen',publisher:'mitpress',year:1989,price:50})
+
+create(dbms:book{isbn:5642,title:'dbms',author:'korth',publisher:'hill',year:2019,price:45})
+
+create(toc:book{isbn:4768,title:'toc',author:'ulman',publisher:'add',year:1979,price:41})
+
+create(cd:book{isbn:5346,title:'cd',author:'ulman',publisher:'add',year:1986,price:40})
+
+
+
+create(cormen:author{author:'cormen',address:'mit',url:'abc'})
+
+create(korth:author{author:'korth',address:'texas',url:'def'})
+
+create(ulman:author{author:'ulman',address:'stanford',url:'ghi'})
+
+
+
+create(mitpress:publisher{publisher:'mitpress',city:'cambridge',phone:'4354',url:'pqr'})
+
+create(hill:publisher{publisher:'hill',city:'boston',phone:'6456',url:'pqr'})
+
+create(add:publisher{publisher:'add',city:'boston',phone:'5645',url:'opq'})
+
+
+
+match (b:book),(a:author) where b.author=a.author create (b)-[r1:writtenby]->(a) return a,b  
+
+(here use same variables before,dont again put b:book etc in later part of the query in creating relationship)
+
+match (b:book),(p:publisher) where b.publisher=p.publisher create (b)-[r2:publishedby]->(p) return b,p
+
+return is not mandatory,just for ensuring that relationships correctly mapped to each other
+
+
+
+my answers:
+q1:correct
+best method:match (b:book)-[r1:writtenby]->(a:author) return a.author,count(*) (similar to Q5 in sample exercise)
+
+works but not recommended:match (b:book),(a:author) where b.author=a.author return a.author,count(*)
+
+q2:correct
+match(b:book) return sum(b.price)
+
+q3:correct
+match (a:author) where a.url='def'
+set a={author:'korth',address:'texas',url:'stu'}
+return a
+
+q4:correct
+match (b:book) return b.title order by b.price asc limit 1
+
+q5:
+correct(didnot check for a run,but this will mostly work)
+match (b:book)-[r2:publishedby]->(p:publisher) return p.publisher,count(*) order by count(*) desc limit 1
+
+q6:
+correct but not recommended:match (b:book),(a:author) where b.author=a.author return a,b order by b.year asc limit 1
+best method:match (b:book)-[r1:writtenby]->(a:author) return a.author order by b.year asc limit 1
+
+
+
