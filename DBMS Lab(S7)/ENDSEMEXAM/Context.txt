@@ -1,0 +1,107 @@
+part A and part B,not allowed to save answers bcz it is written,marks also not revealed
+pasrt c,part d went fine will get 12/12
+in viva missed some qs like another graphdbs like neo4j etc,dont know marks
+
+part C:(my answers):
+
+create table hob(name varchar(20) primary key,hobb varchar(20));
+
+insert into hob values ('a','pa');
+
+insert into hob values ('b','pa');
+
+insert into hob values ('c','pa');
+
+insert into hob values ('d','ba');
+
+insert into hob values ('e','pr');
+
+
+1.
+
+\project_{name} (\select_{hobb='pa'} hob);
+
+2.other than e's hobby even though e's hobby is hobby of other(i understood like this)
+(\project_{hobb} (hob)) 
+\diff
+( \project_{hobb} (\select_{name='e'} hob)  ) ;
+
+
+
+3.
+hob \cross hob;
+
+4.
+(\project_{hobb} (hob)) 
+\diff
+(\project_{h1}((\rename_{n1,h1} hob ) \join_{h1=h2 and n1<>n2} (\rename_{n2,h2} hob))) ;
+
+basic:\project_{h1}((\rename_{n1,h1} hob ) \join_{h1=h2 and n1<>n2} (\rename_{n2,h2} hob))
+
+5.
+
+\project_{n1,n2}(\rename_{n1,h1} hob \join_{n1<>n2 and h1=h2} \rename_{n2,h2} hob) ;
+
+
+6.
+\project_{name} (\select_{hobb='ba' or hobb='pr'} hob);
+
+
+part D:my answers:
+create (alice:patient{pid:111,name:'alice', gender:'m',age:23})
+create (john:patient{pid:112,name:'john', gender:'m',age:34})
+create (lily:patient{pid:113,name:'lily', gender:'f',age:26})
+
+
+create (david:doctor{did:203,name:'david',spec:'ortho'})
+create (diya:doctor{did:324,name:'diya',spec:'derma'})
+create (vijay:doctor{did:345,name:'vijay',spec:'pedia'})
+
+
+create (mu:test{tid:23,pid:112,did:203,tname:'mu',date:'27',res:'p'})
+create (ps:test{tid:45,pid:111,did:324,tname:'ps',date:'12',res:'n'})
+create (st:test{tid:26,pid:112,did:203,tname:'st',date:'28',res:'n'})
+create (mr:test{tid:28,pid:112,did:203,tname:'mr',date:'28',res:'p'})
+create (as:test{tid:34,pid:113,did:345,tname:'as',date:'12',res:'p'})
+
+
+match (t:test),(p:patient) where t.pid=p.pid create (t)-[:to]->(p) return t,p
+
+match (t:test),(d:doctor) where t.did=d.did create (t)-[:by]->(d) return t,d
+
+
+
+
+
+b)
+match (t:test)-[:by]->(d:doctor) return d.name,count(*) order by count(*) desc limit 1
+
+c)
+match(t:test) where t.date='12' return t.date,count(*)
+
+d)not completely sure
+match(t:test) return t.pid,count(*) 
+
+
+e)not completely sure
+match (t:test)-[:by]->(d:doctor)
+match(t)-[:to]->(p:patient) where t.date='12'
+return d.name,p.name,t.date
+
+
+f)
+match (t:test)-[:by]->(d:doctor)
+match(t)-[:to]->(p:patient)
+return d.name,avg(p.age)
+
+
+g)
+CREATE CONSTRAINT ON (t:test) ASSERT t.tid IS UNIQUE
+
+h)
+match(t:test) where t.pid=112
+set t={tid:t.tid,pid:t.pid,did:t.did,tname:t.tname,date:t.date,res:'n'}
+return t
+
+
+
